@@ -20,9 +20,10 @@ import styles from "assets/jss/material-kit-react/views/profilePage.js";
 
 const useStyles = makeStyles(styles);
 
-export default function ProfilePage(props) {
+export default function ProfilePage (props) {
+  console.log(props)
 
-  const [studentProfile, setStudentProfile] = useState({})
+  const studentProfile = props.profile;
   const studentCollectionRef = collection(db, "student")
   const history = useHistory()
 
@@ -38,18 +39,6 @@ export default function ProfilePage(props) {
     classes.imgFluid
   );
 
-  const getProfile = async () => {
-    const q = query(collection(db, "student"), where("email", "==", props.email));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.docs.map((doc) => (
-      setStudentProfile({...doc.data(), id: doc.id })
-    ));
-  }
-  
-  useEffect(() => {
-    getProfile()
-  }, [])
-  
   return (
     <div>
       <Parallax

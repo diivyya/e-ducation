@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Dashboard from "@material-ui/icons/Dashboard";
 import Face from "@material-ui/icons/Face";
@@ -9,6 +9,8 @@ import ChatBubbleOutlined from '@material-ui/icons/ChatBubbleOutlined';
 
 import { useAuth } from "../../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
+import { db } from "../../firebase-config";
+import { collection, where, getDocs, query } from "firebase/firestore";
 
 import NavPills from "components/NavPills/NavPills";
 import ProfilePage from "./ProfilePage";
@@ -20,6 +22,16 @@ export default function StudentDashboard(props) {
     const history = useHistory();
     const [error, setError] = useState("");
     const { currentUser, logout } = useAuth();
+    
+    const [studentProfile, setStudentProfile] = useState({})
+
+    const getProfile = async () => {
+        const q = query(collection(db, "student"), where("email", "==", currentUser.email));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.docs.map((doc) => (
+          setStudentProfile({...doc.data(), id: doc.id })
+        ));
+      }
 
     async function handleLogout() {
         setError("");
@@ -30,6 +42,11 @@ export default function StudentDashboard(props) {
             setError("Failed to log out");
         }
     }
+    
+    useEffect(() => {
+        getProfile()
+    }, [])
+
     return (
         <div>
             <NavPills
@@ -43,14 +60,14 @@ export default function StudentDashboard(props) {
                         tabButton: "Profile",
                         tabIcon: Face,
                         tabContent: (
-                            <ProfilePage email={currentUser ? currentUser.email: null} />
+                            <ProfilePage profile={studentProfile} />
                         ),
                     },
                     {
                         tabButton: "E-Task",
                         tabIcon: Dashboard,
                         tabContent: (
-                            <ETaskBoard />
+                            <ETaskBoard profile={studentProfile} />
                         ),
                     },
                     {

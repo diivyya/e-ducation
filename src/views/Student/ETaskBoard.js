@@ -1,7 +1,9 @@
 import React from 'react';
 import CustomTabs from "components/CustomTabs/CustomTabs.js";
+import Assessments from "./Assessments";
+import OfflineClasses from "./OfflineClasses";
 
-export default function ETaskBoard() {
+export default function ETaskBoard (props) {
 
     return (
         <div style={{minHeight:"100vh"}}>
@@ -10,15 +12,15 @@ export default function ETaskBoard() {
                 headerColor="primary"
                 tabs={[
                   {
-                    tabName: "Assesments",
+                    tabName: "Assessments",
                     tabContent: (
-                      1
+                      <Assessments profile={props.profile} />
                     ),
                   },
                   {
                     tabName: "Offline Classes",
                     tabContent: (
-                      2
+                      <OfflineClasses profile={props.profile} />
                     ),
                   },
                 ]}
