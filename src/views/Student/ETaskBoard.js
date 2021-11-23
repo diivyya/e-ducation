@@ -16,21 +16,9 @@ export default function ETaskBoard() {
                     ),
                   },
                   {
-                    tabName: "Assignments",
-                    tabContent: (
-                      2
-                    ),
-                  },
-                  {
                     tabName: "Offline Classes",
                     tabContent: (
-                      3
-                    ),
-                  },
-                  {
-                    tabName: "Notice Board",
-                    tabContent: (
-                      4
+                      2
                     ),
                   },
                 ]}

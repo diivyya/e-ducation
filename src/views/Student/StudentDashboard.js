@@ -80,7 +80,7 @@ export default function StudentDashboard(props) {
                         onClick={handleLogout}>LOG OUT</button>,
                         tabIcon: LockOpenOutlined,
                         tabContent: (
-                        <h1>Exams</h1>
+                            ""
                         ),
                     },
                 ]}

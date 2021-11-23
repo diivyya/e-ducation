@@ -6,7 +6,7 @@ export default function ChatRoom (props) {
     return (
         <div style={{width: "1250px"}}>
         <ChatEngine
-            height = "100vh"
+            height = "90vh"
             projectID = "c65386d6-3dfc-46a0-9cc7-ff5f45ee157d"
             userName = {props.profile.facultyId ? props.profile.facultyId : props.profile.scholarNo}
             userSecret = {props.profile.password}

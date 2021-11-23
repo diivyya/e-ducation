@@ -151,6 +151,8 @@ export default function ProfilePage(props) {
                   </Row>
                   <Row  className="mb-5">
                     <Col>
+                      <Form.Group id="vaccinationStatus">
+                        <Form.Label><b>Vaccination Status</b></Form.Label>
                         <Form.Select style={{backgroundColor: "transparent"}} label="Vaccination Status"
                           value={studentProfile.vaccinationStatus}
                           onChange={(event) => setNewVaccinationStatus(event.target.value)}>
@@ -159,6 +161,7 @@ export default function ProfilePage(props) {
                           <option value="Partially Vaccinated">Partially Vaccinated</option>
                           <option value="Not Vaccinated">Not Vaccinated</option>
                         </Form.Select>
+                      </Form.Group>
                     </Col>
                 </Row>    
                 <Row  className="mb-5">
