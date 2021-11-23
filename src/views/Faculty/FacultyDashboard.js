@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import Dashboard from "@material-ui/icons/Dashboard";
-import Schedule from "@material-ui/icons/Schedule";
-import List from "@material-ui/icons/List";
 import Face from "@material-ui/icons/Face";
-import AssessmentOutlined from '@material-ui/icons/AssessmentOutlined';
-import AssignmentOutlined from '@material-ui/icons/AssignmentOutlined';
 import GraphicEqOutlined from '@material-ui/icons/GraphicEqOutlined';
 import GradeOutlined from '@material-ui/icons/GradeOutlined';
 import LockOpenOutlined from '@material-ui/icons/LockOpenOutlined';

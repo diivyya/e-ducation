@@ -48,7 +48,7 @@ export default function HeaderLinks(props) {
       </ListItem>
       <ListItem className={classes.listItem}>
         <Button
-          href="https://www.github.com/diivyya/"
+          href="https://www.github.com/diivyya/e-ducation/"
           color="transparent"
           target="_blank"
           className={classes.navLink}
@@ -58,8 +58,6 @@ export default function HeaderLinks(props) {
       </ListItem>
       <ListItem className={classes.listItem}>
         <Tooltip
-          id="instagram-twitter"
-          title="Follow us on twitter"
           placement={window.innerWidth > 959 ? "top" : "left"}
           classes={{ tooltip: classes.tooltip }}
         >
@@ -69,31 +67,12 @@ export default function HeaderLinks(props) {
             color="transparent"
             className={classes.navLink}
           >
-            <i className={classes.socialIcons + " fab fa-twitter"} />
+            <i className={classes.socialIcons + " fab fa-linkedin"} />
           </Button>
         </Tooltip>
       </ListItem>
       <ListItem className={classes.listItem}>
         <Tooltip
-          id="instagram-facebook"
-          title="Follow us on facebook"
-          placement={window.innerWidth > 959 ? "top" : "left"}
-          classes={{ tooltip: classes.tooltip }}
-        >
-          <Button
-            color="transparent"
-            href="https://www.facebook.com/itsmeDevil.0"
-            target="_blank"
-            className={classes.navLink}
-          >
-            <i className={classes.socialIcons + " fab fa-facebook"} />
-          </Button>
-        </Tooltip>
-      </ListItem>
-      <ListItem className={classes.listItem}>
-        <Tooltip
-          id="instagram-tooltip"
-          title="Follow us on instagram"
           placement={window.innerWidth > 959 ? "top" : "left"}
           classes={{ tooltip: classes.tooltip }}
         >

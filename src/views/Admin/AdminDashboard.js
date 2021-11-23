@@ -3,6 +3,7 @@ import FacultyData from "./FacultyData";
 import StudentData from "./StudentData";
 import DepartmentData from "./DepartmentData";
 import SubjectData from "./SubjectData";
+import InternshipAndPlacement from "./InternshipAndPlacement";
 
 import { makeStyles } from "@material-ui/core/styles";
 import CustomTabs from "components/CustomTabs/CustomTabs.js";
@@ -74,6 +75,14 @@ export default function AdminDashboard(props) {
                     tabContent: (
                       <p className={classes.textCenter}>
                         <SubjectData />
+                      </p>
+                    ),
+                  },
+                  {
+                    tabName: "Internship And Placement",
+                    tabContent: (
+                      <p className={classes.textCenter}>
+                        <InternshipAndPlacement />
                       </p>
                     ),
                   },

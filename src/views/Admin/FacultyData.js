@@ -4,16 +4,13 @@ import { collection, doc, getDocs, deleteDoc, query, setDoc, where } from 'fireb
 import { useAuth } from "../../contexts/AuthContext";
 import axios from 'axios';
 
-import { Form, Button, Table, Row, Col } from "react-bootstrap";
+import { Alert, Form, Button, Table, Row, Col } from "react-bootstrap";
 
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Edit from '@material-ui/icons/Edit';
 
 import Multiselect from 'multiselect-react-dropdown';
-
-//image
-//filter option
 
 export default function FacultyData() {
     const initialFormValues = {
@@ -236,13 +233,13 @@ export default function FacultyData() {
                 </Row>
                 <Row className="mb-5">
                     <Col>
-                    <Multiselect
-                        required
-                        options={subject}
-                        displayValue="id"
-                        onSelect={setSubjectsCanTeach}
-                        onRemove={setSubjectsCanTeach}
-                    />
+                        <Multiselect
+                            required
+                            options={subject}
+                            displayValue="id"
+                            onSelect={setSubjectsCanTeach}
+                            onRemove={setSubjectsCanTeach}
+                        />
                     </Col>
                 </Row>
                 <Row className="mb-5">

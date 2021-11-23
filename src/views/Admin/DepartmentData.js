@@ -25,7 +25,7 @@ export default function DepartmentData() {
         return ({ target: { value } }) => {
           setFormValues(oldValues => ({...oldValues, [name]: value }));
         }
-      };
+    };
     
     const createDepartment = async(event) => {
         event.preventDefault();

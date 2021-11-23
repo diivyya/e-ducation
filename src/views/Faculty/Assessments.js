@@ -1,33 +1,57 @@
 import React, { useState } from 'react';
 import { db } from "../../firebase-config";
-import { collection, increment, query, where, getDocs, updateDoc, doc } from "firebase/firestore";
+import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
 
-import { Button, Form, Table } from "react-bootstrap";
+import { Alert, Button, Form, Row, Col } from "react-bootstrap";
 
 export default function Assessments(props) {
+    const initialFormValues = {
+        subjectName: "", deadlineDate: "", deadlineTime: "", term: "", totalMarks: "", link: "", StudentsWhoSubmitted: []
+    }
+    const [formValues, setFormValues] = useState(initialFormValues);
 
     const profile = props.profile
 
     const [subject, setSubject] = useState("");
-    const [students, setStudents] = useState([]);
+    const [assessments, setAssessments] = useState([]);
     const [isFormOpen, setIsFormOpen] = useState(false);
+    const [showSuccesAlert, setShowSuccesAlert] = useState(false);
 
-    const getSubjectStudents = async(event) => {
+    const set = name => {
+        return ({ target: { value } }) => {
+          setFormValues(oldValues => ({...oldValues, [name]: value }));
+        }
+    };
+
+    const getSubjectAssessments = async(event) => {
         setSubject(event.target.value)
-        const q = query(collection(db, "attendance"),
+        const q = query(collection(db, "assessment"),
             where("subjectName", "==", event.target.value))
         const querySnapshot = await getDocs(q);
-        setStudents(querySnapshot.docs.map((doc) => (
+        setAssessments(querySnapshot.docs.map((doc) => (
             { ...doc.data(), id: doc.id }
         )));
+    }
+
+    const createAssessment = async(event) => {
+        event.preventDefault();
+        await addDoc(collection(db, "assessment"), { ...formValues, subjectName: subject });
+        setIsFormOpen(false)
+        setFormValues(initialFormValues)
+        setShowSuccesAlert(true)
     }
     
     return (
         <div>
+            { showSuccesAlert ? 
+                <Alert variant="success" onClose={() => setShowSuccesAlert(false)} dismissible>
+                    Assessment created successfully!!
+                </Alert>
+            : ""}
             <h2>{subject ? subject : ""}</h2>
             <Form.Select style={{backgroundColor: "transparent"}} required
                 value={subject} className="mt-5"
-                onChange={getSubjectStudents}>
+                onChange={getSubjectAssessments}>
                 <option>Subjects</option>
                 {
                     profile.subjectsCanTeach.map((sub) => {
@@ -38,49 +62,70 @@ export default function Assessments(props) {
                 }
             </Form.Select>
             <div style={{"display": "flex", "justify-content": "flex-end"}}>
-                <Button className="mt-5 mr-0" variant="outline-info"
+                <Button className="mt-5 mr-0 mb-4" variant="outline-info"
                     onClick = {() => setIsFormOpen(!isFormOpen)}>
-                    { isFormOpen ? "Submit" : "Create" }</Button>
+                    { isFormOpen ? "Close" : "Create" }</Button>
             </div>
-            { isFormOpen && 
-                <Form onSubmit={createDepartment}>
+            { isFormOpen && subject &&
+                <Form onSubmit={createAssessment} className="mt-5">
                     <Row className="mb-5">
                         <Col>
-                            <Form.Group id="id">
-                                <Form.Label><b>ID</b></Form.Label>
+                            <Form.Select style={{backgroundColor: "transparent"}} required
+                                value={formValues.term} 
+                                onChange={set('term')}>
+                                <option>Term</option>
+                                <option value="Mini Test">Mini Test</option>
+                                <option value="Mid Term">Mid Term</option>
+                                <option value="End Term">End Term</option>
+                                <option value="Class Test">Class Test</option>
+                            </Form.Select>
+                        </Col>
+                    </Row>
+                    <Row className="mb-5">
+                        <Col>
+                            <Form.Group id="totalMarks">
+                                <Form.Label><b>Total Marks</b></Form.Label>
                                 <Form.Control style={{backgroundColor: "transparent"}}
-                                    value={formValues.departmentId} 
-                                    onChange={set('departmentId')}
+                                    value={formValues.totalMarks}  
+                                    onChange={set('totalMarks')}
                                     type="text" required />
                             </Form.Group>
                         </Col>
                         <Col>
-                            <Form.Group id="name">
-                                <Form.Label><b>Name</b></Form.Label>
+                            <Form.Group id="link">
+                                <Form.Label><b>Test Link</b></Form.Label>
                                 <Form.Control style={{backgroundColor: "transparent"}}
-                                    value={formValues.name} 
-                                    onChange={set('name')}
+                                    value={formValues.link} 
+                                    onChange={set('link')}
                                     type="text" required />
                             </Form.Group>
                         </Col>
                         <Col>
-                            <Form.Group id="budget">
-                                <Form.Label><b>Budget</b></Form.Label>
+                            <Form.Group id="deadlineDate">
+                                <Form.Label><b>Deadline Date</b></Form.Label>
+                                <Form.Control type="date" style={{backgroundColor: "transparent"}}
+                                    value={formValues.deadlineDate} 
+                                    onChange={set('deadlineDate')} required/>
+                            </Form.Group>
+                        </Col>
+                        <Col>
+                            <Form.Group id="deadlineTime">
+                                <Form.Label><b>Deadline Time</b></Form.Label>
                                 <Form.Control style={{backgroundColor: "transparent"}}
-                                    value={formValues.budget} 
-                                    onChange={set('budget')}
-                                    type="text" required />
+                                    value={formValues.deadlineTime}  
+                                    onChange={set('deadlineTime')}
+                                    type="time" required />
                             </Form.Group>
                         </Col>
                     </Row>
-
                     <Row className="mb-5">
-                    <Col>
-                            <Button variant="outline-dark" type="submit">{ openEditForm ? "Update" : "Create" }</Button>
+                        <Col>
+                            <Button variant="outline-dark" type="submit">Create</Button>
                         </Col>
                     </Row>
                 </Form> 
             }
+
         </div>
     )
 }

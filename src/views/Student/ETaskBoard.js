@@ -1,12 +1,7 @@
 import React from 'react';
 import CustomTabs from "components/CustomTabs/CustomTabs.js";
-import { makeStyles } from "@material-ui/core/styles";
-import styles from "assets/jss/material-kit-react/views/loginPage.js";
-
-const useStyles = makeStyles(styles);
 
 export default function ETaskBoard() {
-    const classes = useStyles();
 
     return (
         <div style={{minHeight:"100vh"}}>
@@ -17,33 +12,25 @@ export default function ETaskBoard() {
                   {
                     tabName: "Assesments",
                     tabContent: (
-                      <p className={classes.textCenter}>
-                        1
-                      </p>
+                      1
                     ),
                   },
                   {
                     tabName: "Assignments",
                     tabContent: (
-                      <p className={classes.textCenter}>
-                        2
-                      </p>
+                      2
                     ),
                   },
                   {
                     tabName: "Offline Classes",
                     tabContent: (
-                      <p className={classes.textCenter}>
-                        3
-                      </p>
+                      3
                     ),
                   },
                   {
                     tabName: "Notice Board",
                     tabContent: (
-                      <p className={classes.textCenter}>
-                        3
-                      </p>
+                      4
                     ),
                   },
                 ]}
