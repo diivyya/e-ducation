@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { db } from "../../firebase-config";
-import { collection, increment, query, where, getDocs, updateDoc, doc } from "firebase/firestore";
+import { collection, query, where, getDocs, updateDoc, doc } from "firebase/firestore";
 
 import { Button, Form, Table } from "react-bootstrap";
 
@@ -23,7 +23,6 @@ export default function AttendanceBoard(props) {
     }
 
     const markAttendance = async(event) => {
-        console.log(subject)
         const objIndex = students.findIndex((obj => obj.id == event.target.value));
         if (event.target.checked) {  
             students[objIndex].lecturesAttended = students[objIndex].lecturesAttended + 1;

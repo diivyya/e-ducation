@@ -4,7 +4,7 @@ import CustomTabs from "components/CustomTabs/CustomTabs.js";
 import Assessments from "./Assessments";
 import OfflineClasses from "./OfflineClasses";
 
-export default function ETaskBoard() {
+export default function ETaskBoard(props) {
     
   return (
     <div style={{minHeight:"100vh"}}>

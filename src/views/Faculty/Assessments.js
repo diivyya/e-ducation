@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { db } from "../../firebase-config";
-import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, query, where, getDocs, addDoc } from "firebase/firestore";
 
-import { Alert, Button, Form, Row, Col } from "react-bootstrap";
+import { Alert, Button, Card, Form, Row, Col } from "react-bootstrap";
+
+import IconButton from '@material-ui/core/IconButton'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 export default function Assessments(props) {
     const initialFormValues = {
@@ -39,6 +42,12 @@ export default function Assessments(props) {
         setIsFormOpen(false)
         setFormValues(initialFormValues)
         setShowSuccesAlert(true)
+    }
+
+    const deleteAssessment = async(id) => {
+        const assessmentDoc = doc(db, "assessment", id);
+        await deleteDoc(assessmentDoc);
+        getSubjectAssessments({ target: { value: subject }})
     }
     
     return (
@@ -125,7 +134,29 @@ export default function Assessments(props) {
                     </Row>
                 </Form> 
             }
-
+            <div>
+                {
+                    assessments.map((assessment) => {
+                        return (
+                            <Card border="dark" style={{backgroundColor: "transparent", boxShadow: "0px 0px 10px grey"}} className="m-4">
+                                <Card.Header><b>{ assessment.subjectName }</b></Card.Header>
+                                <Card.Body>
+                                    <Card.Title>{ assessment.term }</Card.Title>
+                                    <Card.Text>
+                                        Deadline: { assessment.deadlineDate }, { assessment.deadlineTime }<br/>
+                                        Total Marks: { assessment.totalMarks }<br/>
+                                        <a href={ assessment.link } >Link</a>
+                                    </Card.Text>
+                                    <IconButton aria-label="delete" style={{display: "block", marginLeft: "auto", marginRight: "0px" }}
+                                    onClick={() => {deleteAssessment(assessment.id)}}>
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </Card.Body>
+                            </Card>
+                        );
+                    })
+                }
+            </div>
         </div>
     )
 }

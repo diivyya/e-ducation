@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../../firebase-config';
-import { collection, doc, getDocs, deleteDoc, query, setDoc, where } from 'firebase/firestore';
+import { collection, doc, getDocs, deleteDoc, setDoc } from 'firebase/firestore';
 
 import { Form, Button, Table, Row, Col } from "react-bootstrap";
 
@@ -204,7 +204,7 @@ export default function InternshipAndPlacement() {
                                 <td>{ placement.eligibleBranches.join(", ") }</td>
                                 <td>{ placement.poc }</td>
                                 <td><IconButton aria-label="delete"
-                                    onClick={() => {deleteInternshipOrPlacement(placement.id), true}}>
+                                    onClick={() => {deleteInternshipOrPlacement(placement.id, true)}}>
                                         <DeleteIcon />
                                     </IconButton>
                                 </td>
