@@ -68,19 +68,19 @@ export default function StudentDashboard(props) {
                         ),
                     },
                     {
+                        tabButton: "Chat",
+                        tabIcon: ChatBubbleOutlined,
+                        tabContent: (
+                            ""
+                        ),
+                    },
+                    {
                         tabButton: <button style={{backgroundColor: "transparent",
                         borderColor: "transparent", color: "black"}}
                         onClick={handleLogout}>LOG OUT</button>,
                         tabIcon: LockOpenOutlined,
                         tabContent: (
                         <h1>Exams</h1>
-                        ),
-                    },
-                    {
-                        tabButton: "Chat",
-                        tabIcon: ChatBubbleOutlined,
-                        tabContent: (
-                            ""
                         ),
                     },
                 ]}

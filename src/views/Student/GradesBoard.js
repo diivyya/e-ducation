@@ -25,22 +25,22 @@ export default function GradesBoard(props) {
             <Table responsive="sm" className="mt-5">
                 <thead>
                     <tr>
-                        <th>Term</th>
                         <th>Subject ID</th>
                         <th>Subject Name</th>
-                        <th>Marks Obtained</th>
-                        <th>Total Marks</th>
+                        <th>Mini Test</th>
+                        <th>Mid Term</th>
+                        <th>End Term</th>
                     </tr>
                 </thead>
                 <tbody>
                     {grades.map((grade) => {
                         return (
                             <tr>
-                                <td>{ grade.term }</td>
                                 <td>{ grade.subjectId }</td>
                                 <td>{ grade.subjectName }</td>
-                                <td>{ grade.marksObtained }</td>
-                                <td>{ grade.totalMarks }</td>
+                                <td>{ grade.grades.miniTest } / 10</td>
+                                <td>{ grade.grades.midTerm } / 20</td>
+                                <td>{ grade.grades.endTerm } / 60</td>
                             </tr>                        
                         )
                     })}

@@ -33,15 +33,15 @@ export default function AttendanceBoard(props) {
     }
 
     const submitAttendance = async() => {
-        if (takeAttendance && subject && term) {
+        if (takeAttendance && subject) {
               students.map( async (student) => {
                     const attendanceDocRef = doc(db, "attendance", student.id);
                     await updateDoc(attendanceDocRef, {
                         lecturesAttended: student.lecturesAttended,
-                        totalLectures: increment(1)
+                        totalLectures: student.totalLectures + 1
                     });
+                    getSubjectStudents({target: {value: subject}})
               })
-              getSubjectStudents({target: {value: subject}})
         }
         setTakeAttendance(!takeAttendance)
     }

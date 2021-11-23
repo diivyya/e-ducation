@@ -40,7 +40,7 @@ export default function AttendanceBoard(props) {
                                 <td>{ att.subjectName }</td>
                                 <td>{ att.lecturesAttended }</td>
                                 <td>{ att.totalLectures }</td>
-                                <td>{ (att.lecturesAttended * 100) / att.totalLectures }%</td>
+                                <td>{ Math.round((att.lecturesAttended * 100) / att.totalLectures) }%</td>
                             </tr>                        
                         )
                     })}
