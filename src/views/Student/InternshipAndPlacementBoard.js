@@ -3,6 +3,7 @@ import { db } from "../../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 
 import { Alert, Button, Card } from "react-bootstrap";
+import ReactCardFlip from 'react-card-flip';
 
 export default function Assessments (props) {
     const profile = props.profile
@@ -10,6 +11,7 @@ export default function Assessments (props) {
     const [internships, setInternships] = useState([]);
     const [placements, setPlacements] = useState([]);
     const [showSuccesAlert, setShowSuccesAlert] = useState(false);
+    const [isFlipped, setIsFlipped] = useState(false);
     const PlacementCollectionRef = collection(db, "placement")
     const InternshipCollectionRef = collection(db, "internship")
 
@@ -28,6 +30,8 @@ export default function Assessments (props) {
         getInternshipAndPlacement()
     }, [])
 
+    const handleClick = () => setIsFlipped(!isFlipped)
+
     return (
         <div>
             { showSuccesAlert ? 
@@ -35,12 +39,23 @@ export default function Assessments (props) {
                    Registration done successfully!!
                 </Alert>
             : ""}
+            <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
+        <div>
+          This is the front of the card.
+          <button onClick={handleClick}>Click to flip</button>
+        </div>
+
+        <div>
+          This is the back of the card.
+          <button onClick={handleClick}>Click to flip</button>
+        </div>
+      </ReactCardFlip>
             <div>
                 {
                     internships.map((internship) => {
                         return (
                             <Card border="dark" style={{backgroundColor: "transparent", boxShadow: "0px 0px 10px grey"}} className="m-4">
-                                <Card.Header><b>Internship: { internship.tenure }</b></Card.Header>
+                                <Card.Header><b>Internship: { internship.tenure } weeks</b></Card.Header>
                                 <Card.Body>
                                     <Card.Title>{ internship.name }</Card.Title>
                                     <Card.Text>
