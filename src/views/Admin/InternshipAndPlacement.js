@@ -12,7 +12,7 @@ import Edit from '@material-ui/icons/Edit';
 
 export default function InternshipAndPlacement() {
     const initialFormValues = {
-        name: '', eligibleBranches: [], cgpa: '', package: '', poc: '', tenure: '', jobType: ''
+        name: '', eligibleBranches: [], cgpa: '', package: '', poc: '', tenure: '', jobType: '', registrationLink: '',
     }
     const [formValues, setFormValues] = useState(initialFormValues);
     
@@ -171,6 +171,15 @@ export default function InternshipAndPlacement() {
                             <Form.Control style={{backgroundColor: "transparent"}}
                                 value={formValues.poc} 
                                 onChange={set('poc')}
+                                type="text" required />
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group id="registrationLink">
+                            <Form.Label><b>Registration Link</b></Form.Label>
+                            <Form.Control style={{backgroundColor: "transparent"}}
+                                value={formValues.registrationLink} 
+                                onChange={set('registrationLink')}
                                 type="text" required />
                         </Form.Group>
                     </Col>

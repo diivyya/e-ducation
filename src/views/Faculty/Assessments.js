@@ -145,7 +145,7 @@ export default function Assessments(props) {
                                     <Card.Text>
                                         Deadline: { assessment.deadlineDate }, { assessment.deadlineTime }<br/>
                                         Total Marks: { assessment.totalMarks }<br/>
-                                        <a href={ assessment.link } >Link</a>
+                                        <a href={ assessment.link } >Registration Link</a>
                                     </Card.Text>
                                     <IconButton aria-label="delete" style={{display: "block", marginLeft: "auto", marginRight: "0px" }}
                                     onClick={() => {deleteAssessment(assessment.id)}}>

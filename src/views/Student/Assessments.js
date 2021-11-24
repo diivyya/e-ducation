@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { db } from "../../firebase-config";
 import { collection, query, where, getDocs } from "firebase/firestore";
 
-import { Alert, Card, Form } from "react-bootstrap";
+import { Alert, Button, Card, Form } from "react-bootstrap";
 
 export default function Assessments (props) {
     const profile = props.profile
@@ -14,7 +14,7 @@ export default function Assessments (props) {
 
     const getSubjectAssessments = async(event) => {
         setSelectedSubject(event.target.value)
-        const q = query(collection(db, "assessment"), where("subject", "==", selectedSubject));
+        const q = query(collection(db, "assessment"), where("subjectName", "==", event.target.value));
         const querySnapshot = await getDocs(q);
         setAssessments(querySnapshot.docs.map((doc) => (
             { ...doc.data(), id: doc.id }
@@ -26,10 +26,7 @@ export default function Assessments (props) {
             where("department", "==", profile.department),
             where("year", "==", profile.year));
         const querySnapshot = await getDocs(q);
-        console.log(querySnapshot)
-        setSubjects(querySnapshot.docs.map((doc) => (
-            { ...doc.data(), id: doc.id }
-        )));
+        setSubjects(querySnapshot.docs.map(doc => doc.id));
     }
 
     useEffect(() => {
@@ -43,9 +40,8 @@ export default function Assessments (props) {
                     Assessment submitted successfully!!
                 </Alert>
             : ""}
-            <h2>{selectedSubject ? selectedSubject : ""}</h2>
-            <Form.Select style={{backgroundColor: "transparent"}} required
-                value={selectedSubject} className="mt-5"
+            <Form.Select style={{backgroundColor: "transparent", maxWidth: "500px"}} required
+                value={selectedSubject} className="m-5"
                 onChange={getSubjectAssessments}>
                 <option>Subjects</option>
                 {
@@ -67,7 +63,7 @@ export default function Assessments (props) {
                                     <Card.Text>
                                         Deadline: { assessment.deadlineDate }, { assessment.deadlineTime }<br/>
                                         Total Marks: { assessment.totalMarks }<br/>
-                                        <a href={ assessment.link } >Submit Assessment</a>
+                                        <Button className="float-end" variant="outline-dark" href={ assessment.link } >Submit Assessment</Button>
                                     </Card.Text>
                                 </Card.Body>
                             </Card>

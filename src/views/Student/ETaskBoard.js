@@ -2,6 +2,7 @@ import React from 'react';
 import CustomTabs from "components/CustomTabs/CustomTabs.js";
 import Assessments from "./Assessments";
 import OfflineClasses from "./OfflineClasses";
+import InternshipAndPlacementBoard from "./InternshipAndPlacementBoard";
 
 export default function ETaskBoard (props) {
 
@@ -21,6 +22,12 @@ export default function ETaskBoard (props) {
                     tabName: "Offline Classes",
                     tabContent: (
                       <OfflineClasses profile={props.profile} />
+                    ),
+                  },
+                  {
+                    tabName: "Internship and Placement",
+                    tabContent: (
+                      <InternshipAndPlacementBoard profile={props.profile} />
                     ),
                   },
                 ]}
