@@ -27,7 +27,7 @@ export default function WorkSection() {
             collaboration. We will responde get back to you in a couple of
             hours.
           </h4>
-          <form>
+          <form action="https://mailthis.to/divya1107@outlook.com" method="POST">
             <GridContainer>
               <GridItem xs={12} sm={12} md={6}>
                 <CustomInput
@@ -60,7 +60,7 @@ export default function WorkSection() {
                 }}
               />
               <GridItem xs={12} sm={12} md={4}>
-                <Button color="primary">Send Message</Button>
+                <Button color="primary" type="submit">Send Message</Button>
               </GridItem>
             </GridContainer>
           </form>

@@ -21,7 +21,6 @@ import styles from "assets/jss/material-kit-react/views/profilePage.js";
 const useStyles = makeStyles(styles);
 
 export default function ProfilePage (props) {
-  console.log(props)
 
   const studentProfile = props.profile;
   const studentCollectionRef = collection(db, "student")

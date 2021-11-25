@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../../firebase-config";
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { Link } from "react-router-dom";
-// import SeatingArrangement from "./SeatingArrangement.js";
 import { Alert, Button, Card } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
@@ -35,22 +33,14 @@ export default function OfflineClasses(props) {
   useEffect(() => {
     getOfflineClasses();
   }, []);
-  const navigateTo = () => {
+
+  const navigateTo = (offlineClass) => {
     history.push({
       pathname: "/SeatingArrangement",
-      state: {
-        profile: "profile",
-        email: "email",
-        movieimage: "movieimage",
-        username: "username",
-        mobile: "mobile",
-        moviename: "moviename",
-        ticketcost: "ticketcost",
-        bookingdate: "bookingdate",
-        password: "password",
-      },
+      state: { seats: offlineClass.seats, scholarNo: profile.scholarNo, classId: offlineClass.id },
     });
   };
+
   return (
     <div>
       {showSuccesAlert ? (
@@ -86,15 +76,18 @@ export default function OfflineClasses(props) {
                   Date: {offlineClass.date}
                   <br />
                   Time: {offlineClass.time}
-                  {/*}
-                  <Button
-                    className="float-end"
-                    variant="outline-dark"
-                    onClick={navigateTo}
-                  >
-                    Navigate
-                  </Button>
-            */}
+                  <div className="float-end">
+                    { offlineClass.studentsWhoRegistered.includes(profile.scholarNo) ? 
+                      <Button variant="success">Registered!</Button> : 
+                      <Button
+                        className="float-end"
+                        variant="outline-dark"
+                        onClick={() => navigateTo(offlineClass)}
+                      >
+                        Book Seats
+                      </Button>
+                    }
+                  </div>
                 </Card.Text>
               </Card.Body>
             </Card>

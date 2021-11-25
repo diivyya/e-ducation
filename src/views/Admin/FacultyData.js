@@ -60,7 +60,7 @@ export default function FacultyData() {
     } else {
       await setDoc(doc(db, "faculty", formValues.email), formValues);
       signup(formValues.email, formValues.password);
-/*
+      /*
       const data = {
         username: formValues.facultyId,
         secret: formValues.password,

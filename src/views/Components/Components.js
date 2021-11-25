@@ -41,8 +41,8 @@ export default function Components(props) {
             <GridItem>
               <div className={classes.brand}>
                 <h1 className={classes.title}>E-ducation</h1>
-                <h3 className={classes.subtitle}>
-                  <div>A web application</div><div>for Electronic Education!</div>
+                <h3 className={classes.subtitle} style={{animation: "floating 3s ease-in-out infinite"}}>
+                  <div>A web application</div><div>for Electronic Education!<span class="typed" data-typed-items="Developer, Student, Coder, Data Analyst"></span></div>
                 </h3>
               </div>
             </GridItem>
