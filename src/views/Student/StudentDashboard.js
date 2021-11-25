@@ -5,7 +5,6 @@ import Face from "@material-ui/icons/Face";
 import GraphicEqOutlined from '@material-ui/icons/GraphicEqOutlined';
 import GradeOutlined from '@material-ui/icons/GradeOutlined';
 import LockOpenOutlined from '@material-ui/icons/LockOpenOutlined';
-import ChatBubbleOutlined from '@material-ui/icons/ChatBubbleOutlined';
 
 import { useAuth } from "../../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
@@ -18,7 +17,7 @@ import AttendanceBoard from "./AttendanceBoard";
 import ETaskBoard from "./ETaskBoard";
 import GradesBoard from "./GradesBoard";
 
-export default function StudentDashboard(props) {
+export default function StudentDashboard() {
     const history = useHistory();
     const [error, setError] = useState("");
     const { currentUser, logout } = useAuth();
@@ -82,13 +81,6 @@ export default function StudentDashboard(props) {
                         tabIcon: GradeOutlined,
                         tabContent: (
                             <GradesBoard email = {currentUser ? currentUser.email: null} />
-                        ),
-                    },
-                    {
-                        tabButton: "Chat",
-                        tabIcon: ChatBubbleOutlined,
-                        tabContent: (
-                            ""
                         ),
                     },
                     {

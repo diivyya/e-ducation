@@ -18,7 +18,7 @@ export default function Assessments(props) {
     const [subject, setSubject] = useState("");
     const [assessments, setAssessments] = useState([]);
     const [isFormOpen, setIsFormOpen] = useState(false);
-    const [showSuccesAlert, setShowSuccesAlert] = useState(false);
+    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
     const set = name => {
         return ({ target: { value } }) => {
@@ -52,8 +52,8 @@ export default function Assessments(props) {
     
     return (
         <div>
-            { showSuccesAlert ? 
-                <Alert variant="success" onClose={() => setShowSuccesAlert(false)} dismissible>
+            { showSuccessAlert ? 
+                <Alert variant="success" onClose={() => setShowSuccessAlert(false)} dismissible>
                     Assessment created successfully!!
                 </Alert>
             : ""}

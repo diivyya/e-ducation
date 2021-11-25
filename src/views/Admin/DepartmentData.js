@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { db } from '../../firebase-config';
 import { collection, doc, getDocs, deleteDoc, query, setDoc, where } from 'firebase/firestore';
 
-import { Form, Button, Table, Row, Col } from "react-bootstrap";
+import { Alert, Form, Button, Table, Row, Col } from "react-bootstrap";
 
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -20,6 +20,7 @@ export default function DepartmentData() {
 
     const [showCreateForm, setShowCreateForm] = useState(false);
     const [openEditForm, setOpenEditForm] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
 
     const set = name => {
         return ({ target: { value } }) => {
@@ -36,6 +37,7 @@ export default function DepartmentData() {
             getDepartment()
             setShowCreateForm(false)
             setFormValues(initialFormValues)
+            setShowAlert(true);
         }
     }
 
@@ -44,6 +46,7 @@ export default function DepartmentData() {
         setShowCreateForm(false);
         setOpenEditForm(true);
         setFormValues(dept);
+        setShowAlert(true);
     }
 
     const updateDepartment = async() => {
@@ -51,6 +54,7 @@ export default function DepartmentData() {
         getDepartment()
         setOpenEditForm(false)
         setFormValues(initialFormValues)
+        setShowAlert(true);
     }
 
     const deleteDepartment = async(id) => {
@@ -85,6 +89,11 @@ export default function DepartmentData() {
     
     return (
         <div>
+            { showAlert ? 
+                <Alert variant="success" onClose={() => setShowAlert(false)} dismissible>
+                    Department data updated successfully!!
+                </Alert>
+            : ""}
             <Button variant="outline-danger" className="mt-4 mb-4" onClick={showOnClick}>
                 {(showCreateForm || openEditForm) ? "Close Form" : "Create new department"}</Button>
             {(showCreateForm || openEditForm) &&     

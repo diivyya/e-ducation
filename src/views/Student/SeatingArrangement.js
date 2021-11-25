@@ -71,9 +71,6 @@ export default function SeatingArrangement() {
   const [currentSeats, setCurrentSeats] = useState({ ...location.state.seats });
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [assignNumber, setAssignNumber] = useState(2);
-  const [seatBooked, setSeatBooked] = useState({
-    category: -1, row: -1
-  })
 
   const alreadySelected = (category, row, i) => {
     let resp = false;
@@ -121,8 +118,10 @@ export default function SeatingArrangement() {
   };
 
   const ConfirmBooking = async() => {
+    let finalSeats = currentSeats
+    finalSeats[selectedSeats[0]][selectedSeats[1]][selectedSeats[2]] = 1
     await updateDoc(doc(db, "offlineClass", location.state.classId), {
-      seats: currentSeats,
+      seats: finalSeats,
       studentsWhoRegistered: arrayUnion(location.state.scholarNo)
     });
     history.push("/student");
@@ -148,7 +147,6 @@ export default function SeatingArrangement() {
                   {currentSeats[category][row].map((seat, i) => (
                     <button
                       onClick={() => {
-                        setSeatBooked({category: category, row: row})
                         setSeats(category, row, i);
                       }}
                       disabled={seat === 1}
@@ -168,7 +166,6 @@ export default function SeatingArrangement() {
         className="center"
         variant="outline-dark"
         onClick={() => {
-          setSeats(seatBooked.category, seatsBooked.row, 1)
           setAssignNumber(1)
         }}
       >

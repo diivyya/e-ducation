@@ -1,4 +1,5 @@
 import React from "react";
+import emailjs from 'emailjs-com';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -16,8 +17,12 @@ const useStyles = makeStyles(styles);
 
 export default function WorkSection() {
   const classes = useStyles();
+
+  const handleSubmit = async(event) => {
+    await emailjs.sendForm(MAIL_SERVICE_ID, MAIL_TEMPLATE_ID, event.target, MAIL_INTEGRATION_ID)
+  }
   return (
-    <div className={classes.section}>
+    <form className={classes.section} onSubmit={handleSubmit}>
       <GridContainer justify="center">
         <GridItem cs={12} sm={12} md={8}>
           <h2 className={classes.title}>Feedback Form</h2>
@@ -30,6 +35,7 @@ export default function WorkSection() {
                 <CustomInput
                   labelText="Your Name"
                   id="name"
+                  name="name"
                   formControlProps={{
                     fullWidth: true,
                   }}
@@ -39,6 +45,7 @@ export default function WorkSection() {
                 <CustomInput
                   labelText="Your Email"
                   id="email"
+                  name="email"
                   formControlProps={{
                     fullWidth: true,
                   }}
@@ -47,6 +54,7 @@ export default function WorkSection() {
               <CustomInput
                 labelText="Your Message"
                 id="message"
+                name="message"
                 formControlProps={{
                   fullWidth: true,
                   className: classes.textArea,
@@ -63,6 +71,6 @@ export default function WorkSection() {
           </form>
         </GridItem>
       </GridContainer>
-    </div>
+    </form>
   );
 }

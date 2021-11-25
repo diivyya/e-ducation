@@ -44,8 +44,17 @@ export default function FacultyData() {
 
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [openEditForm, setOpenEditForm] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   const { signup } = useAuth();
+
+  const alert = (variant, message) => {
+    return (
+      <Alert variant={variant} onClose={() => setShowAlert(false)} dismissible>
+          {message}
+      </Alert>
+    )
+  }
 
   const set = (name) => {
     return ({ target: { value } }) => {
@@ -60,32 +69,10 @@ export default function FacultyData() {
     } else {
       await setDoc(doc(db, "faculty", formValues.email), formValues);
       signup(formValues.email, formValues.password);
-      /*
-      const data = {
-        username: formValues.facultyId,
-        secret: formValues.password,
-        email: formValues.email,
-        first_name: formValues.name,
-      };
-      const config = {
-        method: "post",
-        url: "https://api.chatengine.io/users/",
-        headers: {
-          "PRIVATE-KEY": "2565eb88-7df8-4a01-ad3a-122a0daf08b1",
-        },
-        data: data,
-      };
-      axios(config)
-        .then(function (response) {
-          console.log(JSON.stringify(response.data));
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-        */
       getFaculty();
       setShowCreateForm(false);
       setFormValues(initialFormValues);
+      setShowAlert(true);
     }
   };
 
@@ -100,12 +87,14 @@ export default function FacultyData() {
     getFaculty();
     setOpenEditForm(false);
     setFormValues(initialFormValues);
+    setShowAlert(true);
   };
 
   const deleteFaculty = async (id) => {
     const facultyDoc = doc(db, "faculty", id);
     await deleteDoc(facultyDoc);
     getFaculty();
+    setShowAlert(true);
   };
 
   const showOnClick = () => {
@@ -152,6 +141,11 @@ export default function FacultyData() {
 
   return (
     <div>
+      { showAlert ? 
+        <Alert variant="success" onClose={() => setShowAlert(false)} dismissible>
+            Faculty data updated successfully!!
+        </Alert>
+      : ""}
       <Button
         variant="outline-danger"
         className="mt-4 mb-4"
@@ -216,17 +210,6 @@ export default function FacultyData() {
                   type="text"
                   required
                 />
-              </Form.Group>
-            </Col>
-            <Col>
-              <Form.Group
-                controlId="image"
-                className="mb-3"
-                style={{ backgroundColor: "transparent" }}
-                onChange={(event) => setNewImage(event.target.files[0])}
-              >
-                <Form.Label>Image</Form.Label>
-                <Form.Control type="file" />
               </Form.Group>
             </Col>
           </Row>

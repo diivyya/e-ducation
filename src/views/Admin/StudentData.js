@@ -3,7 +3,7 @@ import { db } from '../../firebase-config';
 import { collection, doc, getDocs, deleteDoc, query, setDoc, where } from 'firebase/firestore';
 import { useAuth } from "../../contexts/AuthContext";
 
-import { Form, Button, Table, Row, Col } from "react-bootstrap";
+import { Alert, Form, Button, Table, Row, Col } from "react-bootstrap";
 
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -23,6 +23,7 @@ export default function StudentData() {
 
     const [showCreateForm, setShowCreateForm] = useState(false);
     const [openEditForm, setOpenEditForm] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
 
     const { signup } = useAuth()
 
@@ -39,30 +40,40 @@ export default function StudentData() {
         } else {
             await setDoc(doc(db, "student", formValues.email), formValues);
             signup(formValues.email, formValues.password);
-            const data = {
-                "username": formValues.facultyId,
-                "secret": formValues.password,
-                "email": formValues.email,
-                "first_name": formValues.name,
-            };
-            const config = {
-                method: 'post',
-                url: 'https://api.chatengine.io/users/',
-                headers: {
-                    'PRIVATE-KEY': "2565eb88-7df8-4a01-ad3a-122a0daf08b1"
-                },
-                data : data
-            };
-            axios(config)
-                .then(function (response) {
-                    console.log(JSON.stringify(response.data));
-                })
-                .catch(function (error) {
-                    console.log(error);
+            /*
+            const q = query(
+                collection(db, "subject"),
+                where("department", "==", formValues.department),
+                where("year", "==", formValues.year)
+                );
+            const querySnapshot = await getDocs(q);
+            const subjects = querySnapshot.docs.map((doc) => (
+                {...doc.data(), id: doc.id }
+            ));
+            subjects.map(async(subject) => {
+                await addDoc(collection(db, "marks"), {
+                    name: formValues.name,
+                    scholarNo: formValues.scholarNo,
+                    email: formValues.email,
+                    subjectId: subject.id,
+                    subjectName: subject.name,
+                    grades: {endTerm: null, midTerm: null, miniTest: null}
                 });
+                await addDoc(collection(db, "attendance"), {
+                    name: formValues.name,
+                    scholarNo: formValues.scholarNo,
+                    email: formValues.email,
+                    subjectId: subject.id,
+                    subjectName: subject.name,
+                    lecturesAttended: 0,
+                    totalLectures: subject.totalLectures
+                });
+            })
+            */
             getStudent()
             setShowCreateForm(false)
             setFormValues(initialFormValues)
+            setShowAlert(true);
         }
     }
 
@@ -78,6 +89,7 @@ export default function StudentData() {
         getStudent()
         setOpenEditForm(false)
         setFormValues(initialFormValues)
+        setShowAlert(true);
     }
 
     const getStudent = async() => {
@@ -87,10 +99,23 @@ export default function StudentData() {
     )));
     }
 
-    const deleteStudent = async(id) => {
-        const studentDoc = doc(db, "student", id);
+    const deleteStudent = async(student) => {
+        const studentDoc = doc(db, "student", student.id);
         await deleteDoc(studentDoc);
+        /*
+        const q1 = query(
+            collection(db, "attendance"),
+            where("email", "==", student.email),
+        );
+        await deleteDoc(q1);
+        const q2 = query(
+            collection(db, "grades"),
+            where("email", "==", student.email),
+        );
+        await deleteDoc(q2);
+        */
         getStudent()
+        setShowAlert(true);
     }
     
     const showOnClick = () => {
@@ -112,6 +137,11 @@ export default function StudentData() {
 
     return (
         <div>
+            { showAlert ? 
+                <Alert variant="success" onClose={() => setShowAlert(false)} dismissible>
+                    Student data updated successfully!!
+                </Alert>
+            : ""}
             <Button variant="outline-danger" className="mt-4 mb-4" onClick={showOnClick}>
                 {(showCreateForm || openEditForm) ? "Close Form" : "Create new student"}</Button>
                 {(showCreateForm || openEditForm) &&   
@@ -160,13 +190,6 @@ export default function StudentData() {
                                 value={formValues.address} 
                                 onChange={set('address')}
                                 type="text" required />
-                        </Form.Group>
-                    </Col>
-                    <Col>
-                        <Form.Group controlId="image" className="mb-3" style={{backgroundColor: "transparent"}}
-                            onChange={(event) => setNewImage(event.target.files[0])}>
-                            <Form.Label>Image</Form.Label>
-                            <Form.Control type="file" />
                         </Form.Group>
                     </Col>
                 </Row>
@@ -259,7 +282,7 @@ export default function StudentData() {
                                 <td>{ stud.address }</td>
                                 <td>{ stud.vaccinationStatus }</td>
                                 <td><IconButton aria-label="delete"
-                                    onClick={() => {deleteStudent(stud.id)}}>
+                                    onClick={() => {deleteStudent(stud)}}>
                                         <DeleteIcon />
                                     </IconButton>
                                 </td>

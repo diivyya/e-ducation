@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { db } from "../../firebase-config";
-import { collection, query, where, getDocs, updateDoc, doc } from "firebase/firestore";
+import { collection, query, increment, where, getDocs, updateDoc, doc } from "firebase/firestore";
 
 import { Button, Form, Table } from "react-bootstrap";
 
@@ -33,14 +33,17 @@ export default function AttendanceBoard(props) {
 
     const submitAttendance = async() => {
         if (takeAttendance && subject) {
-              students.map( async (student) => {
-                    const attendanceDocRef = doc(db, "attendance", student.id);
-                    await updateDoc(attendanceDocRef, {
-                        lecturesAttended: student.lecturesAttended,
-                        totalLectures: student.totalLectures + 1
-                    });
-                    getSubjectStudents({target: {value: subject}})
-              })
+            students.map( async (student) => {
+                const attendanceDocRef = doc(db, "attendance", student.id);
+                await updateDoc(attendanceDocRef, {
+                    lecturesAttended: student.lecturesAttended,
+                    totalLectures: student.totalLectures + 1
+                });
+                getSubjectStudents({target: {value: subject}})
+            })
+            await updateDoc(doc(db, "subject", subject), {
+            totalLectures: increment(1)
+            });
         }
         setTakeAttendance(!takeAttendance)
     }
