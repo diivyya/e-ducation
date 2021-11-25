@@ -36,7 +36,7 @@ export default function OfflineClasses(props) {
 
   const navigateTo = (offlineClass) => {
     history.push({
-      pathname: "/SeatingArrangement",
+      pathname: "/seating-arrangement",
       state: { seats: offlineClass.seats, scholarNo: profile.scholarNo, classId: offlineClass.id },
     });
   };
@@ -84,7 +84,7 @@ export default function OfflineClasses(props) {
                         variant="outline-dark"
                         onClick={() => navigateTo(offlineClass)}
                       >
-                        Book Seats
+                        Book Seat
                       </Button>
                     }
                   </div>

@@ -3,7 +3,6 @@ import { db } from "../../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 
 import { Alert, Button, Card } from "react-bootstrap";
-import ReactCardFlip from 'react-card-flip';
 
 export default function Assessments (props) {
     const profile = props.profile
@@ -26,6 +25,15 @@ export default function Assessments (props) {
     )));
     }
 
+    const checkEligibility = (company, isPlacement) => {
+        if (company.eligibleBranches.includes(profile.department)) {
+            if ((isPlacement && profile.year == "4") || (!isPlacement && profile.year == "3")) {
+                return true;
+            }
+        }
+        return false
+    }
+
     useEffect(() => {
         getInternshipAndPlacement()
     }, [])
@@ -39,17 +47,6 @@ export default function Assessments (props) {
                    Registration done successfully!!
                 </Alert>
             : ""}
-            <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
-        <div>
-          This is the front of the card.
-          <button onClick={handleClick}>Click to flip</button>
-        </div>
-
-        <div>
-          This is the back of the card.
-          <button onClick={handleClick}>Click to flip</button>
-        </div>
-      </ReactCardFlip>
             <div>
                 {
                     internships.map((internship) => {
@@ -62,7 +59,11 @@ export default function Assessments (props) {
                                         Stipend: Rs. { internship.stipend } per month<br />
                                         CGPA Criteria: { internship.cgpa }<br />
                                         Eligible Branches: { internship.eligibleBranches.join(", ") }
-                                        <Button className="float-end" variant="outline-dark" href={ internship.registrationLink } >Registration Link</Button>
+                                        { checkEligibility(internship, false) ?
+                                            <Button className="float-end" variant="outline-dark" href={ internship.registrationLink } >Apply</Button>
+                                            : 
+                                            <Button className="float-end" variant="outline-danger" disabled>Not Eligible</Button>
+                                        }
                                     </Card.Text>
                                 </Card.Body>
                             </Card>
@@ -80,7 +81,11 @@ export default function Assessments (props) {
                                         Package: Rs. { placement.package } per annum<br />
                                         CGPA Criteria: { placement.cgpa }<br />
                                         Eligible Branches: { placement.eligibleBranches.join(", ") }
-                                        <Button className="float-end" variant="outline-dark" href={ placement.registrationLink } >Registration Link</Button>
+                                        { checkEligibility(placement, true) ?
+                                            <Button className="float-end" variant="outline-dark" href={ placement.registrationLink } >Apply</Button>
+                                            : 
+                                            <Button className="float-end" variant="outline-danger" disabled>Not Eligible</Button>
+                                        }
                                     </Card.Text>
                                 </Card.Body>
                             </Card>

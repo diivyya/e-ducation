@@ -24,7 +24,7 @@ ReactDOM.render(
             <Route exact path="/login-page" component={LoginPage} />
             <Route path="/admin" component={AdminDashboard} />
             <Route path="/student" component={StudentDashboard} />
-            <Route path="/SeatingArrangement" component={SeatingArrangement} />
+            <Route path="/seating-arrangement" component={SeatingArrangement} />
             <Route path="/faculty" component={FacultyDashboard} />
             <Route path="/forgot-password" component={ForgotPassword} />
             <Route exact path="/" component={Components} />

@@ -132,45 +132,48 @@ export default function SeatingArrangement() {
   }, [assignNumber])
 
   return (
-    <div css={container} style={{boxShadow: "0px 0px 10px grey"}}>
-      <header>
-        <h1 css={fs25}>Classroom</h1>
-      </header>
-      <div css={classs}>
-        {Object.keys(currentSeats).map((category) => (
-          <div key={category}>
-            <div css={textLeft}>{category}</div>
-            {Object.keys(currentSeats[category]).map((row) => (
-              <div key={row} css={flex}>
-                <div>{row}</div>
-                <div>
-                  {currentSeats[category][row].map((seat, i) => (
-                    <button
-                      onClick={() => {
-                        setSeats(category, row, i);
-                      }}
-                      disabled={seat === 1}
-                      css={[seatCSS, seat === 2 ? active : ""]}
-                    >
-                      {i + 1}
-                    </button>
-                  ))}
+    <div>
+      <Button variant="outline-dark" onClick={() => history.push("/student")} className="float-start mt-5">Back</Button>
+      <div css={container} style={{boxShadow: "0px 0px 10px grey"}}>
+        <header>
+          <h1 css={fs25}>Classroom</h1>
+        </header>
+        <div css={classs}>
+          {Object.keys(currentSeats).map((category) => (
+            <div key={category}>
+              <div css={textLeft}>{category}</div>
+              {Object.keys(currentSeats[category]).map((row) => (
+                <div key={row} css={flex}>
+                  <div>{row}</div>
+                  <div>
+                    {currentSeats[category][row].map((seat, i) => (
+                      <button
+                        onClick={() => {
+                          setSeats(category, row, i);
+                        }}
+                        disabled={seat === 1}
+                        css={[seatCSS, seat === 2 ? active : ""]}
+                      >
+                        {i + 1}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
-            <hr />
-          </div>
-        ))}
+              ))}
+              <hr />
+            </div>
+          ))}
+        </div>
+        <Button
+          className="center"
+          variant="outline-dark"
+          onClick={() => {
+            setAssignNumber(1)
+          }}
+        >
+          Confirm
+        </Button>
       </div>
-      <Button
-        className="center"
-        variant="outline-dark"
-        onClick={() => {
-          setAssignNumber(1)
-        }}
-      >
-        Confirm
-      </Button>
     </div>
   );
 }
