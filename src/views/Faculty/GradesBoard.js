@@ -1,3 +1,7 @@
+/*
+    ---------- Grades Board on Faculty Portal Dashboard -------------
+*/
+
 import React, { useEffect, useState } from 'react';
 import { db } from "../../firebase-config";
 import { collection, query, where, getDocs, updateDoc, doc } from "firebase/firestore";
@@ -11,8 +15,10 @@ export default function GradesBoard(props) {
     const [students, setStudents] = useState([]);
     const [inputGrades, setInputGrades] = useState(false);
 
+    //Faculty profiles passed as props from faculty dashboard
     const profile = props.profile
-    
+
+    //Fetches Marks collections taught by the faculty
     const getGradesData = async() => {
         const q = query(collection(db, "marks"), where("email", "==", profile.email));
         const querySnapshot = await getDocs(q);
@@ -21,7 +27,8 @@ export default function GradesBoard(props) {
         )));
     }
 
-    const getSubjectStudents = async(event) => {
+    //Get the students enrolled in a particular subject
+    const getSubjectStudents = async() => {
         if (subject && term) {
             const q = query(collection(db, "marks"),
                 where("subjectName", "==", subject))
@@ -33,12 +40,14 @@ export default function GradesBoard(props) {
         }
     }
 
+    //Mark grades at each change
     const putGrades = async(event) => {
         console.log(event)
         const objIndex = students.findIndex((obj => obj.id == event.target.name));
         students[objIndex].grades[term] = Number(event.target.value);
     }
 
+    //Submit all grades to the firebase
     const submitGrades = async() => {
         if (inputGrades) {
             students.map( async (student) => {

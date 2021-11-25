@@ -1,3 +1,7 @@
+/*
+    ---------- Profile Page on Faculty Portal Dashboard -------------
+*/
+
 import React, { useEffect, useState } from "react";
 import { db } from "../../firebase-config";
 import { collection, where, getDocs, query } from "firebase/firestore";
@@ -5,7 +9,7 @@ import { collection, where, getDocs, query } from "firebase/firestore";
 import { Button, Form, Col, Row } from "react-bootstrap";
 
 import classNames from "classnames";
-// @material-ui/core components
+
 import { makeStyles } from "@material-ui/core/styles";
 
 import Footer from "components/Footer/Footer.js";

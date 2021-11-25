@@ -1,6 +1,10 @@
+/*
+    ---------- Generic Log In page for Admin, Faculty and Student -------------
+*/
 import React, { useRef, useState, useEffect } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
+
 import Header from "components/Header/Header.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
 import Footer from "components/Footer/Footer.js";
@@ -42,6 +46,7 @@ export default function LoginPage(props) {
   const classes = useStyles();
   const { ...rest } = props;
 
+  //Whatever Log in role selected on home-page is set to login into app, if password fails or role is different then it gives corresponding error
   async function handleSubmit(e) {
     e.preventDefault();
     try {

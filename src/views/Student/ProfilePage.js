@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { db } from "../../firebase-config";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { useHistory } from "react-router-dom";
-
+/*
+    ---------- Profile Page on Student Portal Dashboard -------------
+*/
 import { Button, Form, Col, Row } from "react-bootstrap";
 
 import classNames from "classnames";
-// @material-ui/core components
+
 import { makeStyles } from "@material-ui/core/styles";
 
 import Footer from "components/Footer/Footer.js";

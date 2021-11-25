@@ -1,5 +1,10 @@
+/*
+    ---------- E-Task on Student Dashboard -------------
+*/
 import React from 'react';
+
 import CustomTabs from "components/CustomTabs/CustomTabs.js";
+
 import Assessments from "./Assessments";
 import OfflineClasses from "./OfflineClasses";
 import InternshipAndPlacementBoard from "./InternshipAndPlacementBoard";

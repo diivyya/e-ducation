@@ -1,3 +1,6 @@
+/*
+    ---------- Firebase connection configurations -------------
+*/
 import "firebase/compat/auth";
 import firebase from "firebase/compat/app";
 import { getFirestore } from "@firebase/firestore";

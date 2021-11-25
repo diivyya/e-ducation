@@ -1,3 +1,7 @@
+/*
+    ---------- Faculty Portal Dashboard -------------
+*/
+
 import React, { useState, useEffect } from "react";
 
 import Dashboard from "@material-ui/icons/Dashboard";
@@ -24,14 +28,16 @@ export default function FacultyDashboard() {
 
     const [facultyProfile, setFacultyProfile] = useState({})
 
+    //Get the profile of faculty by using current user session id
     const getProfile = async () => {
         const q = query(collection(db, "faculty"), where("email", "==", currentUser.email));
         const querySnapshot = await getDocs(q);
         querySnapshot.docs.map((doc) => (
           setFacultyProfile({...doc.data(), id: doc.id })
         ));
-      }
+    }
 
+    //Logout and returns to the homepage
     async function handleLogout() {
         setError("");
         try {
@@ -42,10 +48,12 @@ export default function FacultyDashboard() {
         }
     }
 
+    //Fetch profile of faculty when page renders
     useEffect(() => {
         getProfile()
     }, [])
 
+    //All the tabs on Dashboard
     return (
         <div>
             <NavPills

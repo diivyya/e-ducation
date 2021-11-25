@@ -1,3 +1,7 @@
+/*
+    ---------- Student Tab on Admin Portal Dashboard -------------
+*/
+
 import React, { useEffect, useState } from 'react';
 import { db } from '../../firebase-config';
 import { addDoc, collection, doc, getDocs, deleteDoc, query, setDoc, where } from 'firebase/firestore';
@@ -5,8 +9,8 @@ import { useAuth } from "../../contexts/AuthContext";
 
 import { Alert, Form, Button, Table, Row, Col } from "react-bootstrap";
 
-import IconButton from '@material-ui/core/IconButton'
-import DeleteIcon from '@material-ui/icons/Delete'
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Edit from '@material-ui/icons/Edit';
 
 export default function StudentData() {
@@ -14,25 +18,32 @@ export default function StudentData() {
         name: '', email: '', scholarNo: '', year: '', phone: '', password: 'student123',
         department: '', gender: '', vaccinationStatus: '', dob: '', address: ''
     }
+    //setState for storing form values while creation or updation of any student
     const [formValues, setFormValues] = useState(initialFormValues);
     
+    //Reference to collections in firestore
     const DepartmentCollectionRef = collection(db, "department")
     const StudentCollectionRef = collection(db, "student")
+
+    //States to store collection data
     const [department, setDepartment] = useState([]);
     const [student, setStudent] = useState([]);
 
+    //States to open and close form and alert
     const [showCreateForm, setShowCreateForm] = useState(false);
     const [openEditForm, setOpenEditForm] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
 
     const { signup } = useAuth()
 
+    //sets the values entered in form to "formValues" state
     const set = name => {
         return ({ target: { value } }) => {
           setFormValues(oldValues => ({...oldValues, [name]: value }));
         }
     };
     
+    //Creates new student with formValues and store in firestore and add new user-auth, attendance and marks cell for him/her
     const createStudent = async(event) => {
         event.preventDefault();
         if (openEditForm) {
@@ -75,13 +86,14 @@ export default function StudentData() {
         }
     }
 
-    
+    //When we click on edit, it sets the form values to the values of the row and opens the form to update.
     const editStudent = async(stud) => {
         setShowCreateForm(false);
         setOpenEditForm(true);
         setFormValues(stud);
     }
 
+    //Updates the student data when clicked update in form
     const updateStudent = async() => {
         await setDoc(doc(db, "student", formValues.email), formValues);
         getStudent()
@@ -90,6 +102,7 @@ export default function StudentData() {
         setShowAlert(true);
     }
 
+    //Fetches students from firestore
     const getStudent = async() => {
         const data = await getDocs(StudentCollectionRef)
         setStudent(data.docs.map((doc) => (
@@ -97,6 +110,7 @@ export default function StudentData() {
     )));
     }
 
+    //Deletes the student row
     const deleteStudent = async(student) => {
         const studentDoc = doc(db, "student", student.id);
         /*
@@ -116,11 +130,13 @@ export default function StudentData() {
         setShowAlert(true);
     }
     
+    //Sets opening and closing of form
     const showOnClick = () => {
         setShowCreateForm(!showCreateForm)
         setOpenEditForm(false)
     }
 
+    //Fetches departments from firestore
     const getDepartment = async() => {
         const data = await getDocs(DepartmentCollectionRef)
         setDepartment(data.docs.map((doc) => (
@@ -128,6 +144,7 @@ export default function StudentData() {
     )));
     }
 
+    //Fetches all required collection data at the time of render from firestore
     useEffect(() => {
         getStudent()
         getDepartment()

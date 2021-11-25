@@ -1,3 +1,7 @@
+/*
+    ---------- E-Task Tab on Faculty Portal Dashboard -------------
+*/
+
 import React from 'react';
 import CustomTabs from "components/CustomTabs/CustomTabs.js";
 

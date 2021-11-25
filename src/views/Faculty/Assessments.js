@@ -1,3 +1,7 @@
+/*
+    ---------- Assessments Tab on E-Task in Faculty Portal -------------
+*/
+
 import React, { useState } from 'react';
 import { db } from "../../firebase-config";
 import { collection, deleteDoc, doc, query, where, getDocs, addDoc } from "firebase/firestore";
@@ -11,21 +15,26 @@ export default function Assessments(props) {
     const initialFormValues = {
         subjectName: "", deadlineDate: "", deadlineTime: "", term: "", totalMarks: "", link: "", StudentsWhoSubmitted: []
     }
+    //setState for storing form values while creation or updation of any assessment
     const [formValues, setFormValues] = useState(initialFormValues);
 
     const profile = props.profile
 
     const [subject, setSubject] = useState("");
     const [assessments, setAssessments] = useState([]);
+
+    //States to open and close form and alert
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
+    //sets the values entered in form to "formValues" state
     const set = name => {
         return ({ target: { value } }) => {
           setFormValues(oldValues => ({...oldValues, [name]: value }));
         }
     };
 
+    //Get all the created assessment for a particular subject
     const getSubjectAssessments = async(event) => {
         setSubject(event.target.value)
         const q = query(collection(db, "assessment"),
@@ -36,6 +45,7 @@ export default function Assessments(props) {
         )));
     }
 
+    //Creates assessment in firestore using "formValues"
     const createAssessment = async(event) => {
         event.preventDefault();
         await addDoc(collection(db, "assessment"), { ...formValues, subjectName: subject });
@@ -44,6 +54,7 @@ export default function Assessments(props) {
         setShowSuccesAlert(true)
     }
 
+    //Deletes the assessment card
     const deleteAssessment = async(id) => {
         const assessmentDoc = doc(db, "assessment", id);
         await deleteDoc(assessmentDoc);
@@ -87,6 +98,7 @@ export default function Assessments(props) {
                                 <option value="Mid Term">Mid Term</option>
                                 <option value="End Term">End Term</option>
                                 <option value="Class Test">Class Test</option>
+                                <option value="Assignment">Assignment</option>
                             </Form.Select>
                         </Col>
                     </Row>

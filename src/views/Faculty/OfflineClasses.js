@@ -1,3 +1,7 @@
+/*
+    ---------- Offline Classes Tab in E-Task on Faculty Portal Dashboard -------------
+*/
+
 import React, { useState, useEffect } from "react";
 import { db } from "../../firebase-config";
 import {
@@ -6,6 +10,8 @@ import {
   doc,
   getDocs,
   addDoc,
+  query,
+  where
 } from "firebase/firestore";
 import { seats } from "./constants";
 import { Alert, Button, Card, Form, Row, Col } from "react-bootstrap";
@@ -25,25 +31,33 @@ export default function OfflineClasses(props) {
     seats: seats,
     studentsWhoRegistered: [],
   };
+  //setState for storing form values while creation or updation of any offline class
   const [formValues, setFormValues] = useState(initialFormValues);
 
   const [offlineClasses, setOfflineClasses] = useState([]);
+
+  //States to open and close form and alert
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [showSuccesAlert, setShowSuccesAlert] = useState(false);
 
-  const OfflineClassCollectionRef = collection(db, "offlineClass");
-
+  //sets the values entered in form to "formValues" state
   const set = (name) => {
     return ({ target: { value } }) => {
       setFormValues((oldValues) => ({ ...oldValues, [name]: value }));
     };
   };
 
+  //Fetch all offlineClasses created by the faculty
   const getOfflineClasses = async () => {
-    const data = await getDocs(OfflineClassCollectionRef);
-    setOfflineClasses(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    const q = query(collection(db, "offlineClass"),
+            where("faculty", "==", profile.name))
+    const querySnapshot = await getDocs(q);
+    setOfflineClasses(querySnapshot.docs.map((doc) => (
+      { ...doc.data(), id: doc.id }
+  )));
   };
 
+  //Create offline class initialised with 0 students registered and an empty class
   const createOfflineClass = async (event) => {
     event.preventDefault();
     await addDoc(collection(db, "offlineClass"), formValues);
@@ -53,6 +67,7 @@ export default function OfflineClasses(props) {
     getOfflineClasses();
   };
 
+  //Deleted an offline class
   const deleteOfflineClass = async (id) => {
     const offlineClassDoc = doc(db, "offlineClass", id);
     await deleteDoc(offlineClassDoc);

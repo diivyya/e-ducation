@@ -1,3 +1,7 @@
+/*
+    ---------- Attendance Tab on Faculty Portal Dashboard -------------
+*/
+
 import React, { useState } from 'react';
 import { db } from "../../firebase-config";
 import { collection, query, increment, where, getDocs, updateDoc, doc } from "firebase/firestore";
@@ -6,12 +10,14 @@ import { Button, Form, Table } from "react-bootstrap";
 
 export default function AttendanceBoard(props) {
 
+    //Faculty profiles passed as props from faculty dashboard
     const profile = props.profile
 
     const [subject, setSubject] = useState("");
     const [students, setStudents] = useState([]);
     const [takeAttendance, setTakeAttendance] = useState(false);
 
+    //Get students enrolled in the selected subject
     const getSubjectStudents = async(event) => {
         setSubject(event.target.value)
         const q = query(collection(db, "attendance"),
@@ -22,6 +28,7 @@ export default function AttendanceBoard(props) {
         )));
     }
 
+    //Set value after marking attendance of each student
     const markAttendance = async(event) => {
         const objIndex = students.findIndex((obj => obj.id == event.target.value));
         if (event.target.checked) {  
@@ -31,6 +38,7 @@ export default function AttendanceBoard(props) {
         }                                                         
     }
 
+    //Submit overall attendance to the firestore
     const submitAttendance = async() => {
         if (takeAttendance && subject) {
             students.map( async (student) => {

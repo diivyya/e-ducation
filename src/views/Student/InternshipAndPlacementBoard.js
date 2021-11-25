@@ -1,3 +1,6 @@
+/*
+    ---------- Internship and Placement Tab on E-Task in Student Dashboard -------------
+*/
 import React, { useState, useEffect } from 'react';
 import { db } from "../../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
@@ -10,10 +13,11 @@ export default function Assessments (props) {
     const [internships, setInternships] = useState([]);
     const [placements, setPlacements] = useState([]);
     const [showSuccesAlert, setShowSuccesAlert] = useState(false);
-    const [isFlipped, setIsFlipped] = useState(false);
+
     const PlacementCollectionRef = collection(db, "placement")
     const InternshipCollectionRef = collection(db, "internship")
 
+    //Fetch all internship and placement data
     const getInternshipAndPlacement = async() => {
         const data1 = await getDocs(PlacementCollectionRef)
         setPlacements(data1.docs.map((doc) => (
@@ -25,6 +29,7 @@ export default function Assessments (props) {
     )));
     }
 
+    //Authorize apply to only those who are eligible
     const checkEligibility = (company, isPlacement) => {
         if (company.eligibleBranches.includes(profile.department)) {
             if ((isPlacement && profile.year == "4") || (!isPlacement && profile.year == "3")) {
@@ -37,8 +42,6 @@ export default function Assessments (props) {
     useEffect(() => {
         getInternshipAndPlacement()
     }, [])
-
-    const handleClick = () => setIsFlipped(!isFlipped)
 
     return (
         <div>

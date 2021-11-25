@@ -1,3 +1,7 @@
+/*
+    ---------- Seating arrangement feature for offline classes in Student Dashboard -------------
+*/
+
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import React, { useEffect, useState } from "react";
@@ -72,6 +76,7 @@ export default function SeatingArrangement() {
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [assignNumber, setAssignNumber] = useState(2);
 
+  //Check if the seat is already selected
   const alreadySelected = (category, row, i) => {
     let resp = false;
     selectedSeats.forEach((seat) => {
@@ -82,6 +87,7 @@ export default function SeatingArrangement() {
     return resp;
   };
 
+  //Set the seat selected
   const setSingleSeat = (category, row, k) => {
     const currSeats = { ...currentSeats };
     const selSeats = selectedSeats;
@@ -94,6 +100,7 @@ export default function SeatingArrangement() {
     setSelectedSeats(selSeats);
   };
 
+  //Set seats on and off according to clicks in currentSeats
   const setSeats = (category, row, k) => {
     if (customers === 0 || alreadySelected(category, row, k)) {
       return;
@@ -117,6 +124,7 @@ export default function SeatingArrangement() {
     setCurrentSeats(currSeats);
   };
 
+  //Submit the final selected seat and registration on firestore
   const ConfirmBooking = async() => {
     let finalSeats = currentSeats
     finalSeats[selectedSeats[0]][selectedSeats[1]][selectedSeats[2]] = 1

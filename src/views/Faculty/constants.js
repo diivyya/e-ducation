@@ -1,3 +1,7 @@
+/*
+    ---------- Initial seating arrangement to book seat for Online Classes -------------
+*/
+
 export const seats = {
   "classSeats": {
     A: [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],

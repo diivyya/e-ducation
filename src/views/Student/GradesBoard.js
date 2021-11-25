@@ -1,3 +1,6 @@
+/*
+    ---------- Grades Tab on Student Dashboard -------------
+*/
 import React, { useEffect, useState } from 'react';
 import { db } from "../../firebase-config";
 import { collection, query, where, getDocs } from "firebase/firestore";
@@ -7,6 +10,7 @@ import { Table } from "react-bootstrap";
 export default function GradesBoard(props) {
     const [grades, setGrades] = useState([]);
     
+    //Get all grades for a particular student
     const getGradesData = async() => {
         const q = query(collection(db, "marks"), where("email", "==", props.email));
         const querySnapshot = await getDocs(q);

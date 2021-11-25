@@ -1,3 +1,7 @@
+/*
+    ---------- Faculty Tab on Admin Portal Dashboard -------------
+*/
+
 import React, { useEffect, useState } from "react";
 import { db } from "../../firebase-config";
 import {
@@ -20,6 +24,8 @@ import Edit from "@material-ui/icons/Edit";
 import Multiselect from "multiselect-react-dropdown";
 
 export default function FacultyData() {
+
+  //setState for storing form values while creation or updation of any faculty
   const initialFormValues = {
     name: "",
     email: "",
@@ -35,24 +41,30 @@ export default function FacultyData() {
   };
   const [formValues, setFormValues] = useState(initialFormValues);
 
+  //Reference to collections in firestore
   const FacultyCollectionRef = collection(db, "faculty");
   const DepartmentCollectionRef = collection(db, "department");
+
+  //States to store collection data
   const [faculty, setFaculty] = useState([]);
   const [department, setDepartment] = useState([]);
   const [subject, setSubject] = useState([]);
 
+  //States to open and close form and alert
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [openEditForm, setOpenEditForm] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
   const { signup } = useAuth();
 
+  //sets the values entered in form to "formValues" state
   const set = (name) => {
     return ({ target: { value } }) => {
       setFormValues((oldValues) => ({ ...oldValues, [name]: value }));
     };
   };
 
+  //Creates new faculty on clicking submit button
   const createFaculty = async (event) => {
     event.preventDefault();
     if (openEditForm) {
@@ -67,12 +79,14 @@ export default function FacultyData() {
     }
   };
 
+  //When we click on edit, it sets the form values to the values of the row and opens the form to update.
   const editFaculty = async (fac) => {
     setShowCreateForm(false);
     setOpenEditForm(true);
     setFormValues(fac);
   };
 
+  //Updates the faculty data when clicked update in form
   const updateFaculty = async () => {
     await setDoc(doc(db, "faculty", formValues.email), formValues);
     getFaculty();
@@ -81,6 +95,7 @@ export default function FacultyData() {
     setShowAlert(true);
   };
 
+  //Deletes the faculty row
   const deleteFaculty = async (id) => {
     const facultyDoc = doc(db, "faculty", id);
     await deleteDoc(facultyDoc);
@@ -88,21 +103,25 @@ export default function FacultyData() {
     setShowAlert(true);
   };
 
+  //Sets opening and closing of form
   const showOnClick = () => {
     setShowCreateForm(!showCreateForm);
     setOpenEditForm(false);
   };
 
+  //Fetches the faculty data in firestore
   const getFaculty = async () => {
     const data = await getDocs(FacultyCollectionRef);
     setFaculty(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   };
 
+  //Fetches the departments in firestore to add department to a faculty
   const getDepartment = async () => {
     const data = await getDocs(DepartmentCollectionRef);
     setDepartment(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   };
 
+  //Fetches subjects to add "subjectsCanTeach"
   const getSubject = async () => {
     const q = query(
       collection(db, "subject"),
@@ -114,6 +133,7 @@ export default function FacultyData() {
     );
   };
 
+  //Sets the "subjectsCanTeach" multi-select input
   const setSubjectsCanTeach = (event) => {
     setFormValues((oldValues) => ({
       ...oldValues,
@@ -121,10 +141,12 @@ export default function FacultyData() {
     }));
   };
 
+  //When department is selected, retrieve all subjects taught in that department for the multi-select of "subjectsCanTeach"
   useEffect(() => {
     getSubject();
   }, [formValues.department]);
 
+  //Fetch faculty and department data on render
   useEffect(() => {
     getFaculty();
     getDepartment();

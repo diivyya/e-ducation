@@ -1,3 +1,7 @@
+/*
+    ---------- Department Tab on Admin Portal Dashboard -------------
+*/
+
 import React, { useEffect, useState } from 'react';
 import { db } from '../../firebase-config';
 import { collection, doc, getDocs, deleteDoc, query, setDoc, where } from 'firebase/firestore';
@@ -12,22 +16,28 @@ export default function DepartmentData() {
     const initialFormValues = {
         departmentId: '', budget: '', hod: '', name: ''
     }
+    //setState for storing form values while creation or updation of any department
     const [formValues, setFormValues] = useState(initialFormValues);
     
     const [department, setDepartment] = useState([]);
     const [faculty, setFaculty] = useState([]);
+
+    //Reference to collection in firestore
     const DepartmentCollectionRef = collection(db, "department")
 
+    //States to open and close form and alert
     const [showCreateForm, setShowCreateForm] = useState(false);
     const [openEditForm, setOpenEditForm] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
 
+    //sets the values entered in form to to "formValues" state
     const set = name => {
         return ({ target: { value } }) => {
           setFormValues(oldValues => ({...oldValues, [name]: value }));
         }
     };
     
+    //Creates a new department
     const createDepartment = async(event) => {
         event.preventDefault();
         if (openEditForm) {
@@ -41,6 +51,7 @@ export default function DepartmentData() {
         }
     }
 
+    //When we click on edit, it sets the form values to the values of the row and opens the form to update.
     const editDepartment = async(dept) => {
         getFaculty(dept)
         setShowCreateForm(false);
@@ -49,6 +60,7 @@ export default function DepartmentData() {
         setShowAlert(true);
     }
 
+    //Update value of clicked department
     const updateDepartment = async() => {
         await setDoc(doc(db, "department", formValues.name), formValues);
         getDepartment()
@@ -57,12 +69,14 @@ export default function DepartmentData() {
         setShowAlert(true);
     }
 
+    //Deletes the clicked department
     const deleteDepartment = async(id) => {
         const departmentDoc = doc(db, "department", id);
         await deleteDoc(departmentDoc);
         getDepartment()
     }
 
+    //Get department data to display
     const getDepartment = async() => {
         const data = await getDocs(DepartmentCollectionRef)
         setDepartment(data.docs.map((doc) => (
@@ -70,6 +84,7 @@ export default function DepartmentData() {
     )));
     }
 
+    //Get faculty data for the HOD dropdown
     const getFaculty = async(dept) => {
         const q = query(collection(db, "faculty"), where("department", "==", dept.id));
         const querySnapshot = await getDocs(q);
@@ -78,11 +93,13 @@ export default function DepartmentData() {
         )));
     }
 
+    //Sets opening/closing of form
     const showOnClick = () => {
         setShowCreateForm(!showCreateForm)
         setOpenEditForm(false)
     }
 
+    //Load all department data at the time of render
     useEffect(() => {
         getDepartment()
     }, [])

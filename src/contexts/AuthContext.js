@@ -1,3 +1,7 @@
+/*
+    ---------- User Authentication Functions for Firebase -------------
+*/
+
 import React, { useContext, useEffect, useState } from 'react';
 import { auth } from '../firebase-config';
 const AuthContext = React.createContext()
@@ -5,7 +9,7 @@ const AuthContext = React.createContext()
 export function useAuth() { 
     return useContext(AuthContext)
 }
-
+//All the auth functions login, logout, forgotPassword are exported from here
 export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState()
     const [loading, setLoading] = useState(true)

@@ -1,3 +1,6 @@
+/*
+    ---------- Offline Classes Tab on E-Task in Student Dashboard -------------
+*/
 import React, { useState, useEffect } from "react";
 import { db } from "../../firebase-config";
 import { collection, query, where, getDocs } from "firebase/firestore";
@@ -11,6 +14,7 @@ export default function OfflineClasses(props) {
   const [offlineClasses, setOfflineClasses] = useState([]);
   const [showSuccesAlert, setShowSuccesAlert] = useState(false);
 
+  //Get all the offline classes for the subject
   const getOfflineClasses = async () => {
     const q1 = query(
       collection(db, "subject"),
@@ -34,6 +38,7 @@ export default function OfflineClasses(props) {
     getOfflineClasses();
   }, []);
 
+  //If student wants to register, it re-directs to the seating arrangement page
   const navigateTo = (offlineClass) => {
     history.push({
       pathname: "/seating-arrangement",

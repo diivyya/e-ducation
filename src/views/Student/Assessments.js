@@ -1,3 +1,6 @@
+/*
+    ---------- Assessment Tab on E-Task in Student Dashboard -------------
+*/
 import React, { useState, useEffect } from 'react';
 import { db } from "../../firebase-config";
 import { collection, query, where, getDocs } from "firebase/firestore";
@@ -5,6 +8,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { Alert, Button, Card, Form } from "react-bootstrap";
 
 export default function Assessments (props) {
+    //profile of student
     const profile = props.profile
 
     const [subjects, setSubjects] = useState([]);
@@ -12,6 +16,7 @@ export default function Assessments (props) {
     const [assessments, setAssessments] = useState([]);
     const [showSuccesAlert, setShowSuccesAlert] = useState(false);
 
+    //Get assessment for a selected subject
     const getSubjectAssessments = async(event) => {
         setSelectedSubject(event.target.value)
         const q = query(collection(db, "assessment"), where("subjectName", "==", event.target.value));
@@ -21,6 +26,7 @@ export default function Assessments (props) {
         )));
     }
 
+    //Get all the subjects for the student (department and year)
     const getSubjects = async() => {
         const q = query(collection(db, "subject"),
             where("department", "==", profile.department),

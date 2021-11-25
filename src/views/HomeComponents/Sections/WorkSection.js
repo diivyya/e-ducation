@@ -1,11 +1,11 @@
+/*
+    ---------- Feedback section on HomePage -------------
+*/
 import React from "react";
 import emailjs from 'emailjs-com';
-// @material-ui/core components
+
 import { makeStyles } from "@material-ui/core/styles";
 
-// @material-ui/icons
-
-// core components
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import CustomInput from "components/CustomInput/CustomInput.js";

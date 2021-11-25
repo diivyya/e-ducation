@@ -1,6 +1,10 @@
+/*
+    ---------- Subjects Tab on Admin Portal Dashboard -------------
+*/
+
 import React, { useEffect, useState } from 'react';
 import { db } from '../../firebase-config';
-import { collection, doc, getDocs, deleteDoc, query, setDoc, where } from 'firebase/firestore';
+import { collection, doc, getDocs, deleteDoc, setDoc } from 'firebase/firestore';
 
 import { Alert, Form, Button, Table, Row, Col } from "react-bootstrap";
 
@@ -12,23 +16,30 @@ export default function SubjectData() {
     const initialFormValues = {
         name: '', subjectId: '', totalLectures: '', department: '', totalLectures: 0
     }
+    //setState for storing form values while creation or updation of any subject
     const [formValues, setFormValues] = useState(initialFormValues);
     
+    //Reference to collections in firestore
     const DepartmentCollectionRef = collection(db, "department")
     const SubjectCollectionRef = collection(db, "subject")
+
+    //States to store collection data
     const [department, setDepartment] = useState([]);
     const [subject, setSubject] = useState([]);
 
+    //States to open and close form and alert
     const [showCreateForm, setShowCreateForm] = useState(false);
     const [openEditForm, setOpenEditForm] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     
+    //sets the values entered in form to "formValues" state
     const set = name => {
         return ({ target: { value } }) => {
           setFormValues(oldValues => ({...oldValues, [name]: value }));
         }
       };
 
+    //Creates new subject with formValues and store in firestore
     const createSubject = async(event) => {
         event.preventDefault();
         if (openEditForm) {
@@ -40,7 +51,8 @@ export default function SubjectData() {
             setFormValues(initialFormValues)
         }
     }
-    
+
+    //When we click on edit, it sets the form values to the values of the row and opens the form to update.
     const editSubject = async(sub) => {
         setShowCreateForm(false);
         setOpenEditForm(true);
@@ -48,6 +60,7 @@ export default function SubjectData() {
         setShowAlert(true);
     }
 
+    //Updates the subject data when clicked update in form
     const updateSubject = async() => {
         await setDoc(doc(db, "subject", formValues.name), formValues);
         getSubject()
@@ -56,7 +69,7 @@ export default function SubjectData() {
         setShowAlert(true);
     }
 
-
+    //Deletes the subject row from firestore
     const deleteSubject = async(id) => {
         const subjectDoc = doc(db, "subject", id);
         await deleteDoc(subjectDoc);
@@ -64,6 +77,7 @@ export default function SubjectData() {
         setShowAlert(true);
     }
 
+    //Fetches subjects from firestore
     const getSubject = async() => {
         const data = await getDocs(SubjectCollectionRef)
         setSubject(data.docs.map((doc) => (
@@ -71,6 +85,7 @@ export default function SubjectData() {
     )));
     }
 
+    //Fetches departments from firestore
     const getDepartment = async() => {
         const data = await getDocs(DepartmentCollectionRef)
         setDepartment(data.docs.map((doc) => (
@@ -78,11 +93,13 @@ export default function SubjectData() {
     )));
     }
     
+    //Sets opening and closing of form
     const showOnClick = () => {
         setShowCreateForm(!showCreateForm)
         setOpenEditForm(false)
     }
 
+    //Fetches all required collection data at the time of render from firestore
     useEffect(() => {
         getSubject()
         getDepartment()

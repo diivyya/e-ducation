@@ -1,3 +1,7 @@
+/*
+    ---------- Internship and Placement Cell Tab on Admin Portal Dashboard -------------
+*/
+
 import React, { useEffect, useState } from 'react';
 import { db } from '../../firebase-config';
 import { collection, doc, getDocs, deleteDoc, setDoc } from 'firebase/firestore';
@@ -14,35 +18,44 @@ export default function InternshipAndPlacement() {
     const initialFormValues = {
         name: '', eligibleBranches: [], cgpa: '', package: '', poc: '', tenure: '', jobType: '', registrationLink: '',
     }
+    //setState for storing form values while creation or updation of any job
     const [formValues, setFormValues] = useState(initialFormValues);
     
+    //States to store collection data
     const [department, setDepartment] = useState([]);
     const [internships, setInternships] = useState([]);
     const [placements, setPlacements] = useState([]);
+
+    //Reference to collections in firestore
     const DepartmentCollectionRef = collection(db, "department")
     const InternshipCollectionRef = collection(db, "internship")
     const PlacementCollectionRef = collection(db, "placement")
 
+    //States to open and close form and alert
     const [showCreateForm, setShowCreateForm] = useState(false);
     const [openEditForm, setOpenEditForm] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
 
+    //sets the values entered in form to "formValues" state
     const set = name => {
         return ({ target: { value } }) => {
           setFormValues(oldValues => ({...oldValues, [name]: value }));
         }
     };
 
+    //Set "eligibleBranches" multi-select value to "formValues"
     const setEligibleBranches = (event) => {
         setFormValues(oldValues => ({...oldValues, ["eligibleBranches"]: event.map((e) => e.id) }))
     }
 
+    //When we click on edit, it sets the form values to the values of the row and opens the form to update.
     const editInternshipOrPlacement = async(placementOrInternship) => {
         setShowCreateForm(false);
         setOpenEditForm(true);
         setFormValues(placementOrInternship);
     }
 
+    //Updates the data when clicked update in form
     const updateInternshipOrPlacement = async(event) => {
         event.preventDefault();
         if (formValues.jobType === "Internship") {
@@ -59,6 +72,7 @@ export default function InternshipAndPlacement() {
         setShowAlert(true);
     }
 
+    //Deletes a row
     const deleteInternshipOrPlacement = async(id, isPlacement) => {
         if (isPlacement) {
             const placementDoc = doc(db, "placement", id);
@@ -71,6 +85,7 @@ export default function InternshipAndPlacement() {
         setShowAlert(true);
     }
 
+    //Fetches the internship and placement data
     const getInternshipAndPlacement = async() => {
         const data1 = await getDocs(PlacementCollectionRef)
         setPlacements(data1.docs.map((doc) => (
@@ -82,6 +97,7 @@ export default function InternshipAndPlacement() {
     )));
     }
 
+    //Fetches the departments from firestore for mult-select "eligibleBranches"
     const getDepartment = async() => {
         const data = await getDocs(DepartmentCollectionRef)
         setDepartment(data.docs.map((doc) => (
@@ -89,11 +105,13 @@ export default function InternshipAndPlacement() {
         )));
     }
 
+    //Sets opening and closing of form
     const showOnClick = () => {
         setShowCreateForm(!showCreateForm)
         setOpenEditForm(false)
     }
 
+    //Fetches all required collection data at the time of render from firestore
     useEffect(() => {
         getInternshipAndPlacement()
         getDepartment()

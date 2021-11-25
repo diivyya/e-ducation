@@ -1,3 +1,6 @@
+/*
+    ---------- Attendance Board on Student Dashboard -------------
+*/
 import React, { useEffect, useState } from 'react';
 import { db } from "../../firebase-config";
 import { collection, query, where, getDocs } from "firebase/firestore";
@@ -7,6 +10,7 @@ import { Table } from "react-bootstrap";
 export default function AttendanceBoard(props) {
     const [attendance, setAttendance] = useState([]);
     
+    //Get attendance for a student id
     const getAttendanceData = async() => {
         const q = query(collection(db, "attendance"), where("email", "==", props.email));
         const querySnapshot = await getDocs(q);

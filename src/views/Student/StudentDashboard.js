@@ -1,3 +1,6 @@
+/*
+    ---------- Student portal Dashboard -------------
+*/
 import React, { useState, useEffect } from "react";
 
 import Dashboard from "@material-ui/icons/Dashboard";

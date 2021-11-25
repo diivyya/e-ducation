@@ -1,12 +1,14 @@
+/*
+    ---------- About my Application section on HomePage -------------
+*/
 import React from "react";
-// @material-ui/core components
+
 import { makeStyles } from "@material-ui/core/styles";
 
-// @material-ui/icons
 import Chat from "@material-ui/icons/Chat";
 import VerifiedUser from "@material-ui/icons/VerifiedUser";
 import Schedule from "@material-ui/icons/Schedule";
-// core components
+
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import InfoArea from "components/InfoArea/InfoArea.js";

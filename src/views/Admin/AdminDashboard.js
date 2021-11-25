@@ -1,3 +1,7 @@
+/*
+    ---------- Admin Portal Dashboard -------------
+*/
+
 import React, { useState, useEffect } from "react";
 import FacultyData from "./FacultyData";
 import StudentData from "./StudentData";
@@ -16,6 +20,8 @@ import styles from "assets/jss/material-kit-react/views/loginPage.js";
 
 const useStyles = makeStyles(styles);
 
+
+//Returns tabs: Student, Faculty, Department, Subjects, InternshipAndPlacementCell
 export default function AdminDashboard(props) {
     const history = useHistory();
     const [error, setError] = useState("");
@@ -24,6 +30,7 @@ export default function AdminDashboard(props) {
     const classes = useStyles();
     const { ...rest } = props;
 
+    //function: Logout and return to homepage
     async function handleLogout() {
         setError("");
         try {
@@ -34,11 +41,13 @@ export default function AdminDashboard(props) {
         }
     }
 
+    //If there is no authorized login to "/admin", return to homepage
     useEffect(() => {
       if(currentUser===null){
         history.push("/login-page")
       }
     },[])
+
     return (
         <div style={{minHeight:"100vh"}}>
             <Container>

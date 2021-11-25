@@ -1,3 +1,6 @@
+/*
+    ---------- Forgot Password section -------------
+*/
 import React, { useRef, useState } from 'react';
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -37,6 +40,7 @@ export default function ForgotPassword(props) {
     const classes = useStyles();
     const { ...rest } = props;
     
+    //It sends an reset link on the input email ID to change password
     async function handleSubmit(e) {
         e.preventDefault()
         try {
