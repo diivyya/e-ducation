@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
 import Chat from "@material-ui/icons/Chat";
 import VerifiedUser from "@material-ui/icons/VerifiedUser";
-import Fingerprint from "@material-ui/icons/Fingerprint";
+import Schedule from "@material-ui/icons/Schedule";
 // core components
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
@@ -25,6 +25,7 @@ export default function ProductSection() {
           <h5 className={classes.description}>
             This app provides a digital way to students as well as teachers to keep the education going in this pandemic situation.
             Regardless of pandemic, this application is designed to be used for all use-cases of a University on a digital basis.
+            It provides various features like University database management, Student inventory, student-faculty chat and Offline class seat booking etc.
           </h5>
         </GridItem>
       </GridContainer>
@@ -32,8 +33,8 @@ export default function ProductSection() {
         <GridContainer>
           <GridItem xs={12} sm={12} md={4}>
             <InfoArea
-              title="Free Chat"
-              description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
+              title="Online Discussion Form"
+              description="An online discussion form to ensure the participantion and functioning of online classes."
               icon={Chat}
               iconColor="info"
               vertical
@@ -41,8 +42,8 @@ export default function ProductSection() {
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>
             <InfoArea
-              title="Verified Users"
-              description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
+              title="Validated Inventory"
+              description="We provide a smooth interface for students, teachers as well as admins to work with the University Database inventory and retrieve the authorized data with access control."
               icon={VerifiedUser}
               iconColor="success"
               vertical
@@ -50,10 +51,10 @@ export default function ProductSection() {
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>
             <InfoArea
-              title="Fingerprint"
-              description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
-              icon={Fingerprint}
-              iconColor="danger"
+              title="Offline-Class Scheduling"
+              description="We provide an off-line class seating booking and scheduling features according to the COVID-19 norms."
+              icon={Schedule}
+              iconColor="info"
               vertical
             />
           </GridItem>

@@ -1,14 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import { css, jsx } from "@emotion/react";
+import { css } from "@emotion/react";
 import React, { useEffect, useState } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 
 import { db } from "../../firebase-config";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 
-import { seats } from "./constants";
-
-import { Alert, Button, Card } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 const container = css`
   text-align: center;
@@ -73,6 +71,9 @@ export default function SeatingArrangement() {
   const [currentSeats, setCurrentSeats] = useState({ ...location.state.seats });
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [assignNumber, setAssignNumber] = useState(2);
+  const [seatBooked, setSeatBooked] = useState({
+    category: -1, row: -1
+  })
 
   const alreadySelected = (category, row, i) => {
     let resp = false;
@@ -147,6 +148,7 @@ export default function SeatingArrangement() {
                   {currentSeats[category][row].map((seat, i) => (
                     <button
                       onClick={() => {
+                        setSeatBooked({category: category, row: row})
                         setSeats(category, row, i);
                       }}
                       disabled={seat === 1}
@@ -166,6 +168,7 @@ export default function SeatingArrangement() {
         className="center"
         variant="outline-dark"
         onClick={() => {
+          setSeats(seatBooked.category, seatsBooked.row, 1)
           setAssignNumber(1)
         }}
       >

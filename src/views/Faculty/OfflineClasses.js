@@ -7,7 +7,7 @@ import {
   getDocs,
   addDoc,
 } from "firebase/firestore";
-import { seats } from "../Student/constants";
+import { seats } from "./constants";
 import { Alert, Button, Card, Form, Row, Col } from "react-bootstrap";
 
 import IconButton from "@material-ui/core/IconButton";
