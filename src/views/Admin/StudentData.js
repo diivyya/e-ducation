@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../../firebase-config';
-import { collection, doc, getDocs, deleteDoc, query, setDoc, where } from 'firebase/firestore';
+import { addDoc, collection, doc, getDocs, deleteDoc, query, setDoc, where } from 'firebase/firestore';
 import { useAuth } from "../../contexts/AuthContext";
 
 import { Alert, Form, Button, Table, Row, Col } from "react-bootstrap";
@@ -40,7 +40,6 @@ export default function StudentData() {
         } else {
             await setDoc(doc(db, "student", formValues.email), formValues);
             signup(formValues.email, formValues.password);
-            /*
             const q = query(
                 collection(db, "subject"),
                 where("department", "==", formValues.department),
@@ -50,12 +49,12 @@ export default function StudentData() {
             const subjects = querySnapshot.docs.map((doc) => (
                 {...doc.data(), id: doc.id }
             ));
-            subjects.map(async(subject) => {
+            subjects.forEach(async(subject) => {
                 await addDoc(collection(db, "marks"), {
                     name: formValues.name,
                     scholarNo: formValues.scholarNo,
                     email: formValues.email,
-                    subjectId: subject.id,
+                    subjectId: subject.subjectId,
                     subjectName: subject.name,
                     grades: {endTerm: null, midTerm: null, miniTest: null}
                 });
@@ -69,7 +68,6 @@ export default function StudentData() {
                     totalLectures: subject.totalLectures
                 });
             })
-            */
             getStudent()
             setShowCreateForm(false)
             setFormValues(initialFormValues)
@@ -101,7 +99,6 @@ export default function StudentData() {
 
     const deleteStudent = async(student) => {
         const studentDoc = doc(db, "student", student.id);
-        await deleteDoc(studentDoc);
         /*
         const q1 = query(
             collection(db, "attendance"),
@@ -109,11 +106,12 @@ export default function StudentData() {
         );
         await deleteDoc(q1);
         const q2 = query(
-            collection(db, "grades"),
+            collection(db, "marks"),
             where("email", "==", student.email),
         );
         await deleteDoc(q2);
         */
+        await deleteDoc(studentDoc);
         getStudent()
         setShowAlert(true);
     }

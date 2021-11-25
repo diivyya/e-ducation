@@ -10,7 +10,6 @@ import {
   where,
 } from "firebase/firestore";
 import { useAuth } from "../../contexts/AuthContext";
-import axios from "axios";
 
 import { Alert, Form, Button, Table, Row, Col } from "react-bootstrap";
 
@@ -47,14 +46,6 @@ export default function FacultyData() {
   const [showAlert, setShowAlert] = useState(false);
 
   const { signup } = useAuth();
-
-  const alert = (variant, message) => {
-    return (
-      <Alert variant={variant} onClose={() => setShowAlert(false)} dismissible>
-          {message}
-      </Alert>
-    )
-  }
 
   const set = (name) => {
     return ({ target: { value } }) => {
