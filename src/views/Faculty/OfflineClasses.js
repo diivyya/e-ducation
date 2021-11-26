@@ -86,7 +86,7 @@ export default function OfflineClasses(props) {
           onClose={() => setShowSuccesAlert(false)}
           dismissible
         >
-          Assessment created successfully!!
+          Offline class created successfully!!
         </Alert>
       ) : (
         ""
