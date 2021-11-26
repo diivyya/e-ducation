@@ -37,12 +37,12 @@ export default function Components(props) {
         }}
         {...rest}
       />
-      <Parallax image={require("assets/img/bg4.jpg").default}>
+      <Parallax image={require("assets/img/home-bg.png").default}>
         <div className={classes.container}>
           <GridContainer>
             <GridItem>
-              <div className={classes.brand}>
-                <h1 className={classes.title}>E-ducation</h1>
+              <div className={classes.brand} style={{color: "black"}}>
+                <h2 className={classes.title}>E-ducation</h2>
                 <h3 className={classes.subtitle} style={{animation: "floating 3s ease-in-out infinite"}}>
                   <div>A web application</div><div>for Electronic Education!<span class="typed" data-typed-items="Developer, Student, Coder, Data Analyst"></span></div>
                 </h3>

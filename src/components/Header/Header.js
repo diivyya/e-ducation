@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom"
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // nodejs library to set properties for components
@@ -20,6 +21,7 @@ const useStyles = makeStyles(styles);
 
 export default function Header(props) {
   const classes = useStyles();
+  const history = useHistory();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   React.useEffect(() => {
     if (props.changeColorOnScroll) {
@@ -60,9 +62,13 @@ export default function Header(props) {
     [classes.absolute]: absolute,
     [classes.fixed]: fixed,
   });
-  const brandComponent = <Button className={classes.title}>{brand}</Button>;
+  const brandComponent = <Button onClick={()=>history.push('/')} className={classes.title}>
+    <img style={{width:"70px",height:"70px", borderRadius:"70px"}}
+      src="https://cdn2.vectorstock.com/i/1000x1000/28/91/world-education-logo-design-template-vector-20742891.jpg"
+    />
+  </Button>;
   return (
-    <AppBar className={appBarClasses}>
+    <AppBar className={appBarClasses} style={{color: "black"}}>
       <Toolbar className={classes.container}>
         {leftLinks !== undefined ? brandComponent : null}
         <div className={classes.flex}>

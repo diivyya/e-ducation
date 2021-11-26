@@ -54,10 +54,9 @@ export default function SubjectData() {
 
     //When we click on edit, it sets the form values to the values of the row and opens the form to update.
     const editSubject = async(sub) => {
-        setShowCreateForm(false);
+        setShowCreateForm(true);
         setOpenEditForm(true);
         setFormValues(sub);
-        setShowAlert(true);
     }
 
     //Updates the subject data when clicked update in form
@@ -97,6 +96,10 @@ export default function SubjectData() {
     const showOnClick = () => {
         setShowCreateForm(!showCreateForm)
         setOpenEditForm(false)
+        
+        if(!showCreateForm) {
+            setFormValues(initialFormValues);
+        }
     }
 
     //Fetches all required collection data at the time of render from firestore
@@ -199,8 +202,8 @@ export default function SubjectData() {
                                         <Edit />
                                     </IconButton>
                                 </td>
-                            </tr>                        
-                        )
+                            </tr>                      
+                        );
                     })}
                 </tbody>
             </Table>

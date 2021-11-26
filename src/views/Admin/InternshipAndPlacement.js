@@ -50,7 +50,7 @@ export default function InternshipAndPlacement() {
 
     //When we click on edit, it sets the form values to the values of the row and opens the form to update.
     const editInternshipOrPlacement = async(placementOrInternship) => {
-        setShowCreateForm(false);
+        setShowCreateForm(true);
         setOpenEditForm(true);
         setFormValues(placementOrInternship);
     }
@@ -109,6 +109,10 @@ export default function InternshipAndPlacement() {
     const showOnClick = () => {
         setShowCreateForm(!showCreateForm)
         setOpenEditForm(false)
+        
+        if(!showCreateForm) {
+            setFormValues(initialFormValues);
+        }
     }
 
     //Fetches all required collection data at the time of render from firestore

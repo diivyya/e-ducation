@@ -88,7 +88,7 @@ export default function StudentData() {
 
     //When we click on edit, it sets the form values to the values of the row and opens the form to update.
     const editStudent = async(stud) => {
-        setShowCreateForm(false);
+        setShowCreateForm(true);
         setOpenEditForm(true);
         setFormValues(stud);
     }
@@ -134,6 +134,10 @@ export default function StudentData() {
     const showOnClick = () => {
         setShowCreateForm(!showCreateForm)
         setOpenEditForm(false)
+        
+        if(!showCreateForm) {
+            setFormValues(initialFormValues);
+        }
     }
 
     //Fetches departments from firestore

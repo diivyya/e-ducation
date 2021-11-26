@@ -27,7 +27,7 @@ export default function ProductSection() {
           <h5 className={classes.description}>
             This app provides a digital way to students as well as teachers to keep the education going in this pandemic situation.
             Regardless of pandemic, this application is designed to be used for all use-cases of a University on a digital basis.
-            It provides various features like University database management, Student inventory, student-faculty chat and Offline class seat booking etc.
+            It provides various features like University database management, student inventory and Offline class seat booking etc.
           </h5>
         </GridItem>
       </GridContainer>
@@ -35,8 +35,8 @@ export default function ProductSection() {
         <GridContainer>
           <GridItem xs={12} sm={12} md={4}>
             <InfoArea
-              title="Online Discussion Form"
-              description="An online discussion form to ensure the participantion and functioning of online classes."
+              title="Virtual Training and Placement Cell"
+              description="The WhatsApp groups for Company updates and data management is long gone. This online database and inerface gives an easy way to both students and coordinators to do on-campus placements with ease."
               icon={Chat}
               iconColor="info"
               vertical

@@ -36,13 +36,11 @@ export default function GradesBoard(props) {
             setStudents(querySnapshot.docs.map((doc) => (
                 { ...doc.data(), id: doc.id }
             )));
-            console.log(students)
         }
     }
 
     //Mark grades at each change
     const putGrades = async(event) => {
-        console.log(event)
         const objIndex = students.findIndex((obj => obj.id == event.target.name));
         students[objIndex].grades[term] = Number(event.target.value);
     }

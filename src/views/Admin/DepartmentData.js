@@ -54,10 +54,9 @@ export default function DepartmentData() {
     //When we click on edit, it sets the form values to the values of the row and opens the form to update.
     const editDepartment = async(dept) => {
         getFaculty(dept)
-        setShowCreateForm(false);
+        setShowCreateForm(true);
         setOpenEditForm(true);
         setFormValues(dept);
-        setShowAlert(true);
     }
 
     //Update value of clicked department
@@ -97,6 +96,10 @@ export default function DepartmentData() {
     const showOnClick = () => {
         setShowCreateForm(!showCreateForm)
         setOpenEditForm(false)
+        
+        if(!showCreateForm) {
+            setFormValues(initialFormValues);
+        }
     }
 
     //Load all department data at the time of render

@@ -12,6 +12,11 @@ import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 
 import { Button } from "react-bootstrap";
 
+import { makeStyles } from "@material-ui/core/styles";
+import styles from "assets/jss/material-kit-react/views/loginPage.js";
+import image from "assets/img/seating-arrangement.png";
+const useStyles = makeStyles(styles);
+
 const container = css`
   text-align: center;
   padding: 1% 5%;
@@ -71,6 +76,8 @@ export default function SeatingArrangement() {
   const location = useLocation();
   const history = useHistory();
 
+  const classes = useStyles();
+
   const [customers, setCustomers] = useState(1);
   const [currentSeats, setCurrentSeats] = useState({ ...location.state.seats });
   const [selectedSeats, setSelectedSeats] = useState([]);
@@ -127,7 +134,7 @@ export default function SeatingArrangement() {
   //Submit the final selected seat and registration on firestore
   const ConfirmBooking = async() => {
     let finalSeats = currentSeats
-    finalSeats[selectedSeats[0]][selectedSeats[1]][selectedSeats[2]] = 1
+    finalSeats[selectedSeats[0][0]][selectedSeats[0][1]][selectedSeats[0][2]] = 1
     await updateDoc(doc(db, "offlineClass", location.state.classId), {
       seats: finalSeats,
       studentsWhoRegistered: arrayUnion(location.state.scholarNo)
@@ -140,13 +147,21 @@ export default function SeatingArrangement() {
   }, [assignNumber])
 
   return (
-    <div>
-      <Button variant="outline-dark" onClick={() => history.push("/student")} className="float-start mt-5">Back</Button>
-      <div css={container} style={{boxShadow: "0px 0px 10px grey"}}>
+    <div
+      className={classes.pageHeader}
+      style={{
+          backgroundImage: "url(" + image + ")",
+          backgroundSize: "cover",
+          backgroundPosition: "top center",
+          boxShadow: "0px 0px 10px 10px grey",
+      }}
+    >
+      <Button variant="dark" onClick={() => history.push("/student")} className="btn btn-bg float-start mt-5 p-3">Back</Button>
+      <div css={container}>
         <header>
-          <h1 css={fs25}>Classroom</h1>
+          <h1 css={fs25}><b>Classroom</b></h1>
         </header>
-        <div css={classs}>
+        <div css={classs} style={{backgroundColor: "white"}}>
           {Object.keys(currentSeats).map((category) => (
             <div key={category}>
               <div css={textLeft}>{category}</div>
@@ -174,7 +189,7 @@ export default function SeatingArrangement() {
         </div>
         <Button
           className="center"
-          variant="outline-dark"
+          variant="dark"
           onClick={() => {
             setAssignNumber(1)
           }}

@@ -21,7 +21,7 @@ import { Link } from 'react-router-dom';
 
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 
-import image from "assets/img/bg7.jpg";
+import image from "assets/img/login-bg.png";
 
 const useStyles = makeStyles(styles);
 

@@ -81,7 +81,7 @@ export default function FacultyData() {
 
   //When we click on edit, it sets the form values to the values of the row and opens the form to update.
   const editFaculty = async (fac) => {
-    setShowCreateForm(false);
+    setShowCreateForm(true);
     setOpenEditForm(true);
     setFormValues(fac);
   };
@@ -107,6 +107,10 @@ export default function FacultyData() {
   const showOnClick = () => {
     setShowCreateForm(!showCreateForm);
     setOpenEditForm(false);
+
+    if(!showCreateForm) {
+      setFormValues(initialFormValues);
+    }
   };
 
   //Fetches the faculty data in firestore
@@ -282,25 +286,35 @@ export default function FacultyData() {
                 <option value="Not Vaccinated">Not Vaccinated</option>
               </Form.Select>
             </Col>
-            <Col>
-              <Form.Control
-                type="date"
-                style={{ backgroundColor: "transparent" }}
-                value={formValues.dob}
-                onChange={set("dob")}
-                required
-              />
-            </Col>
           </Row>
           <Row className="mb-5">
             <Col>
-              <Multiselect
-                required
-                options={subject}
-                displayValue="id"
-                onSelect={setSubjectsCanTeach}
-                onRemove={setSubjectsCanTeach}
-              />
+              <Form.Group id="dob">
+                <Form.Label>
+                  <b>Date of Birth</b>
+                </Form.Label>
+                <Form.Control
+                  type="date"
+                  style={{ backgroundColor: "transparent" }}
+                  value={formValues.dob}
+                  onChange={set("dob")}
+                  required
+                />
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group id="subjectsCanTeach">
+                <Form.Label>
+                  <b>Assign Subjects to teach</b> (Select department first!)
+                </Form.Label>
+                <Multiselect
+                  required
+                  options={subject}
+                  displayValue="id"
+                  onSelect={setSubjectsCanTeach}
+                  onRemove={setSubjectsCanTeach}
+                />
+              </Form.Group>
             </Col>
           </Row>
           <Row className="mb-5">

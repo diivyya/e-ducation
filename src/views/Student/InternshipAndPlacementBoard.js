@@ -52,6 +52,28 @@ export default function Assessments (props) {
             : ""}
             <div>
                 {
+                    placements.map((placement) => {
+                        return (
+                            <Card border="dark" style={{backgroundColor: "transparent", boxShadow: "0px 0px 10px grey"}} className="m-4">
+                                <Card.Header><b>Full-Time</b></Card.Header>
+                                <Card.Body>
+                                    <Card.Title>{ placement.name }</Card.Title>
+                                    <Card.Text>
+                                        Package: Rs. { placement.package } per annum<br />
+                                        CGPA Criteria: { placement.cgpa }<br />
+                                        Eligible Branches: { placement.eligibleBranches.join(", ") }
+                                        { checkEligibility(placement, true) ?
+                                            <Button className="float-end" variant="outline-dark" href={ placement.registrationLink } >Apply</Button>
+                                            : 
+                                            <Button className="float-end" variant="outline-danger" disabled>Not Eligible</Button>
+                                        }
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        );
+                    })
+                }
+                {
                     internships.map((internship) => {
                         return (
                             <Card border="dark" style={{backgroundColor: "transparent", boxShadow: "0px 0px 10px grey"}} className="m-4">
@@ -64,28 +86,6 @@ export default function Assessments (props) {
                                         Eligible Branches: { internship.eligibleBranches.join(", ") }
                                         { checkEligibility(internship, false) ?
                                             <Button className="float-end" variant="outline-dark" href={ internship.registrationLink } >Apply</Button>
-                                            : 
-                                            <Button className="float-end" variant="outline-danger" disabled>Not Eligible</Button>
-                                        }
-                                    </Card.Text>
-                                </Card.Body>
-                            </Card>
-                        );
-                    })
-                }
-                {
-                    placements.map((placement) => {
-                        return (
-                            <Card border="dark" style={{backgroundColor: "transparent", boxShadow: "0px 0px 10px grey"}} className="m-4">
-                                <Card.Header><b>Placement</b></Card.Header>
-                                <Card.Body>
-                                    <Card.Title>{ placement.name }</Card.Title>
-                                    <Card.Text>
-                                        Package: Rs. { placement.package } per annum<br />
-                                        CGPA Criteria: { placement.cgpa }<br />
-                                        Eligible Branches: { placement.eligibleBranches.join(", ") }
-                                        { checkEligibility(placement, true) ?
-                                            <Button className="float-end" variant="outline-dark" href={ placement.registrationLink } >Apply</Button>
                                             : 
                                             <Button className="float-end" variant="outline-danger" disabled>Not Eligible</Button>
                                         }

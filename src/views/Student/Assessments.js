@@ -46,18 +46,21 @@ export default function Assessments (props) {
                     Assessment submitted successfully!!
                 </Alert>
             : ""}
-            <Form.Select style={{backgroundColor: "transparent", maxWidth: "500px"}} required
-                value={selectedSubject} className="m-5"
-                onChange={getSubjectAssessments}>
-                <option>Subjects</option>
-                {
-                    subjects.map((sub) => {
-                        return (
-                            <option value={sub}>{sub}</option>
-                        )
-                    })
-                }
-            </Form.Select>
+            <Form.Group id="subjects"  className="m-5">
+                <Form.Label><b>Select Subject</b></Form.Label>
+                <Form.Select style={{backgroundColor: "transparent", maxWidth: "500px"}} required
+                    value={selectedSubject}
+                    onChange={getSubjectAssessments}>
+                    <option>Subjects</option>
+                    {
+                        subjects.map((sub) => {
+                            return (
+                                <option value={sub}>{sub}</option>
+                            )
+                        })
+                    }
+                </Form.Select>
+            </Form.Group>
             <div>
                 {
                     assessments.map((assessment) => {
