@@ -55,6 +55,7 @@ export default function GradesBoard(props) {
                   });
             })
             getSubjectStudents({target: {value: subject}})
+            getGradesData()
         }
         setInputGrades(!inputGrades)
     }
@@ -138,9 +139,9 @@ export default function GradesBoard(props) {
                                     </>
                                 :
                                     <>
-                                        <td>{student.grades.endTerm}</td>
+                                        <td>{student.grades.miniTest}</td>
                                         <td>10</td>
-                                        <td>{ student.grades.endTerm * 10 }%</td>
+                                        <td>{ student.grades.miniTest * 10 }%</td>
                                     </> )
                                 }
                                 <td>{ inputGrades ? 
