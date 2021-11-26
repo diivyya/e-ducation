@@ -14,6 +14,7 @@ import { useHistory } from "react-router-dom";
 import { db } from "../../firebase-config";
 import { collection, where, getDocs, query } from "firebase/firestore";
 
+import Footer from "components/Footer/Footer.js";
 import NavPills from "components/NavPills/NavPills";
 import ProfilePage from "./ProfilePage";
 import AttendanceBoard from "./AttendanceBoard";
@@ -97,6 +98,7 @@ export default function StudentDashboard() {
                     },
                 ]}
               />
+              <Footer />
         </div>
     )
 }

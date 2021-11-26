@@ -4,6 +4,7 @@
 
 import React, { useState, useEffect } from "react";
 
+import Footer from "components/Footer/Footer.js";
 import Dashboard from "@material-ui/icons/Dashboard";
 import Face from "@material-ui/icons/Face";
 import GraphicEqOutlined from '@material-ui/icons/GraphicEqOutlined';
@@ -102,6 +103,7 @@ export default function FacultyDashboard() {
                     },
                 ]}
               />
+              <Footer />
         </div>
     )
 }

@@ -12,6 +12,7 @@ import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 
 import { Button } from "react-bootstrap";
 
+import Footer from "components/Footer/Footer.js";
 import { makeStyles } from "@material-ui/core/styles";
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 import image from "assets/img/seating-arrangement.png";
@@ -202,6 +203,7 @@ export default function SeatingArrangement() {
           </Button>
         </div>
       </div>
+      <Footer whiteFont />
     </div>
   );
 }

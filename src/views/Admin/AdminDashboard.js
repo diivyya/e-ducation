@@ -8,6 +8,7 @@ import StudentData from "./StudentData";
 import DepartmentData from "./DepartmentData";
 import SubjectData from "./SubjectData";
 import InternshipAndPlacement from "./InternshipAndPlacement";
+import Footer from "components/Footer/Footer.js";
 
 import { makeStyles } from "@material-ui/core/styles";
 import CustomTabs from "components/CustomTabs/CustomTabs.js";
@@ -111,6 +112,7 @@ export default function AdminDashboard(props) {
                 ]}
               />
             </Container>
+            <Footer />
         </div>
     )
 }
