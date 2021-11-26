@@ -17,7 +17,7 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Parallax from "components/Parallax/Parallax.js";
 
-import profile from "assets/img/profile.png";
+import { AvatarGenerator } from 'random-avatar-generator';
 
 import styles from "assets/jss/material-kit-react/views/profilePage.js";
 
@@ -33,6 +33,9 @@ export default function ProfilePage(props) {
     classes.imgRoundedCircle,
     classes.imgFluid
   );
+
+  const generator = new AvatarGenerator();
+  const image = generator.generateRandomAvatar();
   
   return (
     <div style={{width: "1220px", margin:"auto"}}>
@@ -48,7 +51,7 @@ export default function ProfilePage(props) {
               <GridItem xs={12} sm={12} md={6}>
                 <div className={classes.profile}>
                   <div>
-                    <img src={profile} alt="..." className={imageClasses} />
+                    <img src={image} alt="..." className={imageClasses} />
                   </div>
                   <div className={classes.name}>
                     <h3 className={classes.title}>{ facultyProfile.name }</h3>
@@ -134,11 +137,6 @@ export default function ProfilePage(props) {
                       </Form.Group>
                     </Col>
               </Row>
-              <Row className="mb-5">
-                    <Col>
-                        <Button variant="outline-dark" type="submit">Edit</Button>
-                    </Col>
-                </Row>
             </Form> 
           </div>
         </div>

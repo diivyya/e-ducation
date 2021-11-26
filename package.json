@@ -21,6 +21,7 @@
     "node-sass": "6.0.0",
     "nouislider": "15.1.0",
     "prop-types": "15.7.2",
+    "random-avatar-generator": "^2.0.0",
     "react": "17.0.2",
     "react-bootstrap": "^2.0.2",
     "react-card-flip": "^1.1.3",
