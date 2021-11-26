@@ -19,23 +19,26 @@ export default function WorkSection() {
   const classes = useStyles();
 
   const handleSubmit = async(event) => {
-    await emailjs.sendForm(MAIL_SERVICE_ID, MAIL_TEMPLATE_ID, event.target, MAIL_INTEGRATION_ID)
+    event.preventDefault();
+    console.log(event.target)
+    await emailjs.sendForm("service_yj2dr4r", "template_b1k6zbs", event.target, "user_AKzw2fgbXraQdLoIXttBO")
+    event.target.reset();
   }
   return (
-    <form className={classes.section} onSubmit={handleSubmit}>
+    <div>
       <GridContainer justify="center">
         <GridItem cs={12} sm={12} md={8}>
           <h2 className={classes.title}>Feedback Form</h2>
           <h4 className={classes.description}>
             Please do provide feedback/suggestions for this project!
           </h4>
-          <form action="https://mailthis.to/divya1107@outlook.com" method="POST">
+          <form onSubmit={handleSubmit}>
             <GridContainer>
               <GridItem xs={12} sm={12} md={6}>
                 <CustomInput
                   labelText="Your Name"
                   id="name"
-                  name="name"
+                  nameValue="name"
                   formControlProps={{
                     fullWidth: true,
                   }}
@@ -45,7 +48,7 @@ export default function WorkSection() {
                 <CustomInput
                   labelText="Your Email"
                   id="email"
-                  name="email"
+                  nameValue="email"
                   formControlProps={{
                     fullWidth: true,
                   }}
@@ -54,7 +57,7 @@ export default function WorkSection() {
               <CustomInput
                 labelText="Your Message"
                 id="message"
-                name="message"
+                nameValue="message"
                 formControlProps={{
                   fullWidth: true,
                   className: classes.textArea,
@@ -71,6 +74,6 @@ export default function WorkSection() {
           </form>
         </GridItem>
       </GridContainer>
-    </form>
+    </div>
   );
 }

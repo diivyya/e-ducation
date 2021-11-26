@@ -17,13 +17,9 @@ import styles from "assets/jss/material-kit-react/views/loginPage.js";
 import image from "assets/img/seating-arrangement.png";
 const useStyles = makeStyles(styles);
 
-const container = css`
-  text-align: center;
-  padding: 1% 5%;
-  margin: 0 auto;
-`;
 const fs25 = css`
-  font-size: 25px;
+  font-size: 35px;
+  text-align: center;
 `;
 const textLeft = css`
   text-align: left;
@@ -156,8 +152,7 @@ export default function SeatingArrangement() {
           boxShadow: "0px 0px 10px 10px grey",
       }}
     >
-      <Button variant="dark" onClick={() => history.push("/student")} className="btn btn-bg float-start mt-5 p-3">Back</Button>
-      <div css={container}>
+      <div className={classes.container}>
         <header>
           <h1 css={fs25}><b>Classroom</b></h1>
         </header>
@@ -187,15 +182,25 @@ export default function SeatingArrangement() {
             </div>
           ))}
         </div>
-        <Button
-          className="center"
-          variant="dark"
-          onClick={() => {
-            setAssignNumber(1)
-          }}
-        >
-          Confirm
-        </Button>
+        <div className="text-center">
+          <Button
+            style={{fontSize: "25px"}}
+            variant="dark"
+            onClick={() => {
+              setAssignNumber(1)
+            }}
+          >
+            Confirm
+          </Button>
+          <span style={{width: "50px"}}>   </span>
+          <Button
+            style={{fontSize: "25px"}}
+            variant="dark"
+            onClick={() => history.push("/student")}
+          >
+            Back
+          </Button>
+        </div>
       </div>
     </div>
   );

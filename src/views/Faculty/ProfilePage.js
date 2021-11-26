@@ -116,7 +116,6 @@ export default function ProfilePage(props) {
                         <Form.Group id="phone">
                             <Form.Label><b>Contact no</b></Form.Label>
                             <Form.Control style={{backgroundColor: "transparent"}}
-                                onChange={(event) => setNewPhone(event.target.value)}
                                 value={facultyProfile.phone}
                                 type="text" />
                         </Form.Group>
@@ -126,7 +125,7 @@ export default function ProfilePage(props) {
                         <Form.Label><b>Vaccination Status</b></Form.Label>
                         <Form.Select style={{backgroundColor: "transparent"}} label="Vaccination Status"
                             value={facultyProfile.vaccinationStatus} 
-                            onChange={(event) => setNewVaccinationStatus(event.target.value)}>
+                          >
                             <option>Vaccination Status</option>
                             <option value="Fully Vaccinated">Fully Vaccinated</option>
                             <option value="Partially Vaccinated">Partially Vaccinated</option>

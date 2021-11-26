@@ -27,7 +27,7 @@ export default function ProductSection() {
           <h5 className={classes.description}>
             This app provides a digital way to students as well as teachers to keep the education going in this pandemic situation.
             Regardless of pandemic, this application is designed to be used for all use-cases of a University on a digital basis.
-            It provides various features like University database management, student inventory and Offline class seat booking etc.
+            It provides various features like University database management, tudent inventory and Offline class seat booking etc.
           </h5>
         </GridItem>
       </GridContainer>
