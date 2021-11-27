@@ -78,7 +78,7 @@ password: 110701
 ## Installation
 1. git clone https://github.com/diivyya/e-ducation.git
 2. cd e-ducation/
-3. npm install
+3. npm install --legacy-peer-deps
 4. npm start
 
 Now view e-ducation in the browser.
