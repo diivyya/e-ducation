@@ -1,24 +1,22 @@
-/*
-    ---------- Firebase connection configurations -------------
-*/
 import "firebase/compat/auth";
 import firebase from "firebase/compat/app";
 import { getFirestore } from "@firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
+    apiKey: "AIzaSyDd_GHbMF7QQa9DJX1T5aNwY1ZtzCxzW8Y",
+    authDomain: "e-ducation-e3522.firebaseapp.com",
+    projectId: "e-ducation-e3522",
+    storageBucket: "e-ducation-e3522.appspot.com",
+    messagingSenderId: "800380852984",
+    appId: "1:800380852984:web:325a08a362100baf19790d",
+    measurementId: "G-5QNER5WQBY"
 };
 
 const app = firebase.initializeApp(firebaseConfig);
 
 export const db = getFirestore(app);
 
-export const auth = app.auth();
+export const auth = app.auth()
 
-export default app;
+export default app
+
