@@ -58,22 +58,7 @@ For all the three roles, there is role-based access control using firebase authe
 
 
 ## Access keys
-
-Admin: 
-
-email id: diivyyat@gmail.com
-password: 110701
-
-Faculty:
-
-email id: jtc@gmail.com
-password: faculty123
-
-Student:
-
-email id: divyatembhurne1107@gmail.com
-password: 110701
-
+please check the supporting documents
 
 ## Installation
 1. git clone https://github.com/diivyya/e-ducation.git
